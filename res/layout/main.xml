@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
+<!--Для тестирования на девайсе editable=false чтоб сделать поле readonly !-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent" android:layout_gravity="center">
+    <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World, MainActivity"
-            />
-</LinearLayout>
-
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+        <EditText
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:text="Откуда"
+                android:id="@+id/editText"
+                android:editable="false"
+                android:layout_alignParentLeft="true" android:layout_marginLeft="17dp"
+                android:layout_alignParentTop="true" android:layout_marginTop="60dp"/>
+        <EditText
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:text="Куда"
+                android:id="@+id/editText1"
+                android:editable="false"
+                android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
+                android:layout_marginTop="120dp"/>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="ЗАКАЗАТЬ"
+                android:id="@+id/button" android:layout_centerHorizontal="false" android:layout_alignParentTop="false"
+                android:layout_marginTop="330dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ВРЕМЯ"
+                android:id="@+id/textView" android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
+                android:layout_marginTop="166dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="СТОИМОСТЬ"
+                android:id="@+id/textView1"
+                android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
+                android:layout_marginTop="190dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ЗАКАЗ ЛОДОЧНОГО ТАКСИ"
+                android:id="@+id/textView2"
+                android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+                android:layout_marginTop="18dp"/>
+    </RelativeLayout>
+</RelativeLayout>
