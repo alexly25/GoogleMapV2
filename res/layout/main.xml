@@ -12,7 +12,7 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:text="Откуда"
-                android:id="@+id/editText"
+                android:id="@+id/fromChoice"
                 android:editable="false"
                 android:layout_alignParentLeft="true" android:layout_marginLeft="17dp"
                 android:layout_alignParentTop="true" android:layout_marginTop="60dp"/>
@@ -20,29 +20,16 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:text="Куда"
-                android:id="@+id/editText1"
+                android:id="@+id/toChoice"
                 android:editable="false"
-                android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/fromChoice" android:layout_alignParentTop="true"
                 android:layout_marginTop="120dp"/>
         <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="ЗАКАЗАТЬ"
                 android:id="@+id/button" android:layout_centerHorizontal="false" android:layout_alignParentTop="false"
-                android:layout_marginTop="330dp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ВРЕМЯ"
-                android:id="@+id/textView" android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
-                android:layout_marginTop="166dp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="СТОИМОСТЬ"
-                android:id="@+id/textView1"
-                android:layout_alignLeft="@+id/editText" android:layout_alignParentTop="true"
-                android:layout_marginTop="190dp"/>
+                android:layout_marginTop="330dp" android:enabled="false"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,5 +37,35 @@
                 android:id="@+id/textView2"
                 android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
                 android:layout_marginTop="18dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Оплата: 0.0"
+                android:id="@+id/cost"
+                android:layout_alignLeft="@+id/dateAndTimeFrame" android:layout_below="@+id/dateAndTimeFrame"
+                android:textSize="18dp" android:layout_marginTop="10dp"/>
+        <LinearLayout
+                android:id="@+id/dateAndTimeFrame"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_alignLeft="@+id/fromChoice"
+                android:layout_below="@+id/toChoice" android:baselineAligned="false"
+                android:layout_alignParentRight="false" android:layout_marginRight="20dp">
+            <Button android:layout_width="wrap_content"
+                    android:layout_weight = "1"
+                    android:layout_height="50dp"
+                    android:text="Выбор даты"
+                    android:id="@+id/dateOrder"
+                    android:textSize="12dp"
+                    android:onClick="onClick" android:layout_marginTop="5dp" android:layout_marginLeft="3dp"/>
+            <Button android:layout_width="wrap_content"
+                    android:layout_weight = "1"
+                    android:layout_height="50dp"
+                    android:text="Выбор времени"
+                    android:id="@+id/timeOrder"
+                    android:textSize="12dp"
+                    android:onClick="onClick" android:layout_marginTop="5dp"/>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
