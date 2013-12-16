@@ -10,16 +10,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
-public class MainActivity extends Activity implements View.OnClickListener{
-    String myLog = "myLog";
+public class MainActivity extends Activity implements View.OnClickListener {
 
-    EditText etFrom;
-    Button dateOrder;
-    Button timeOrder;
-
-
+    private final String LOG = "logMainActivity";
     private final int DIALOG_DATE = 1;
     private final int DIALOG_TIME = 2;
+
+    private EditText etFrom;
+    private EditText etTo;
+    private Button dateOrder;
+    private Button timeOrder;
+
+    private Integer fromId;
+    private Integer toId;
+
+    /**
+     * Переменная определяет для какого поля был вызван activity
+     * true - для поля etFrom
+     * false - для поля etTo
+     */
+    private boolean isFromChose;
 
     /**
      * Задание нынешней времени и даты, надо автоматизировать..
@@ -36,10 +46,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        Log.d(myLog,"onCreate");
+        Log.d(LOG, "onCreate");
 
         etFrom = (EditText) findViewById(R.id.fromChoice);
         etFrom.setOnClickListener(this);
+
+        etTo = (EditText) findViewById(R.id.toChoice);
+        etTo.setOnClickListener(this);
 
         dateOrder = (Button) findViewById(R.id.dateOrder);
         dateOrder.setOnClickListener(this);
@@ -51,28 +64,73 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        Log.d(myLog,"onClick()");
+        Log.d(LOG, "onClick()");
 
-        switch (v.getId()){
+        Intent intent;
+        switch (v.getId()) {
             case R.id.fromChoice:
 
-                Log.d(myLog,"Select from");
+                Log.d(LOG, "Select from");
 
-                Intent intent = new Intent(this, MapActivity.class);
-                startActivity(intent);
+                isFromChose = true;
+                intent = new Intent(this, MapActivity.class);
+                startActivityForResult(intent, 1);
+
+                break;
+            case R.id.toChoice:
+
+                Log.d(LOG, "Select to");
+
+                isFromChose = false;
+                intent = new Intent(this, MapActivity.class);
+                startActivityForResult(intent, 1);
+
                 break;
             case R.id.dateOrder:
 
-                Log.d(myLog, "Pick date");
+                Log.d(LOG, "Pick date");
 
                 showDialog(DIALOG_DATE);
                 break;
             case R.id.timeOrder:
 
-                Log.d(myLog, "Pick time");
+                Log.d(LOG, "Pick time");
 
                 showDialog(DIALOG_TIME);
                 break;
+        }
+    }
+
+    /**
+     * Метод принимает данный с MapActivity
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (isFromChose) {
+            etFrom.setText(data.getStringExtra("nameBoathouse"));
+            fromId = Integer.valueOf(data.getStringExtra("id"));
+        } else {
+            etTo.setText(data.getStringExtra("nameBoathouse"));
+            toId = Integer.valueOf(data.getStringExtra("id"));
+        }
+
+        calculation();
+    }
+
+    /**
+     * Расчет стоимости
+     */
+    private void calculation() {
+
+        Log.d(LOG, "toId: " + toId + ", fromId: " + fromId);
+
+        if (toId != null && fromId != null /* && time == good */) {
+
+            // Подключаемся к серверу
         }
     }
 
