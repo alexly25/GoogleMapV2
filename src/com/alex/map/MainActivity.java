@@ -4,34 +4,25 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import ru.shem.services.CostCalculating;
 
-public class MainActivity extends Activity implements View.OnClickListener{
-    String myLog = "myLog";
+public class MainActivity extends Activity implements View.OnClickListener {
 
-
-
-    private EditText etFrom;
-    private EditText etTo;
-    private TextView cost;
-    private Button dateOrder;
-    private Button timeOrder;
-    private Button doOrder;
-    private Integer fromId;
-    private Integer toId;
-
-    private CostCalculationBroadcastReceiver broadcastReceiver;
     private final String LOG = "logMainActivity";
     private final int DIALOG_DATE = 1;
     private final int DIALOG_TIME = 2;
+
+    private TextView etFrom;
+    private TextView  etTo;
+   // private Button dateOrder;
+    private Button timeOrder;
+
+    private Integer fromId;
+    private Integer toId;
 
     /**
      * Переменная определяет для какого поля был вызван activity
@@ -39,7 +30,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
      * false - для поля etTo
      */
     private boolean isFromChose;
-
 
     /**
      * Задание нынешней времени и даты, надо автоматизировать..
@@ -57,121 +47,98 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.main);
 
         Log.d(LOG, "onCreate");
-        Log.d(myLog,"onCreate");
 
-        etFrom = (EditText) findViewById(R.id.fromChoice);
+        etFrom = (TextView ) findViewById(R.id.fromChoice);
         etFrom.setOnClickListener(this);
 
-        etTo = (EditText) findViewById(R.id.toChoice);
+        etTo = (TextView ) findViewById(R.id.toChoice);
         etTo.setOnClickListener(this);
 
-        dateOrder = (Button) findViewById(R.id.dateOrder);
-        dateOrder.setOnClickListener(this);
+        //dateOrder = (Button) findViewById(R.id.dateOrder);
+       // dateOrder.setOnClickListener(this);
 
-        timeOrder = (Button) findViewById(R.id.timeOrder);
+        timeOrder = (Button) findViewById(R.id.btnTime);
         timeOrder.setOnClickListener(this);
-
-        doOrder = (Button) findViewById(R.id.doOrder);
-        doOrder.setOnClickListener(this);
-
-        cost = (TextView) findViewById(R.id.cost);
-        cost.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
-        Log.d(myLog,"onClick()");
         Log.d(LOG, "onClick()");
 
         Intent intent;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fromChoice:
-                Log.d(myLog,"Select from");
+
                 Log.d(LOG, "Select from");
+
                 isFromChose = true;
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
+
                 break;
             case R.id.toChoice:
+
                 Log.d(LOG, "Select to");
-                Log.d(myLog,"Select to");
 
                 isFromChose = false;
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
+
                 break;
-            case R.id.dateOrder:
+           /* case R.id.dateOrder:
+
                 Log.d(LOG, "Pick date");
-                Log.d(myLog, "Pick date");
 
                 showDialog(DIALOG_DATE);
                 break;
             case R.id.timeOrder:
+
                 Log.d(LOG, "Pick time");
-                Log.d(myLog, "Pick time");
 
                 showDialog(DIALOG_TIME);
-                break;
+                break;  */
         }
     }
 
     /**
-     -     * Метод принимает данный с MapActivity
-     -     *
-     -     * @param requestCode
-     -     * @param resultCode
-     -     * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
-     -     */
+     * Метод принимает данный с MapActivity
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (isFromChose) {
-        etFrom.setText(data.getStringExtra("nameBoathouse"));
-        fromId = Integer.valueOf(data.getStringExtra("id"));
+            etFrom.setText(data.getStringExtra("nameBoathouse"));
+            fromId = Integer.valueOf(data.getStringExtra("id"));
         } else {
-        etTo.setText(data.getStringExtra("nameBoathouse"));
-        toId = Integer.valueOf(data.getStringExtra("id"));
+            etTo.setText(data.getStringExtra("nameBoathouse"));
+            toId = Integer.valueOf(data.getStringExtra("id"));
         }
+
         calculation();
     }
 
     /**
-    * Расчет стоимости
-    */
+     * Расчет стоимости
+     */
     private void calculation() {
+
         Log.d(LOG, "toId: " + toId + ", fromId: " + fromId);
 
         if (toId != null && fromId != null /* && time == good */) {
-            // Создаём исходный поток в IntentService
-            Intent intentCostCalculating = new Intent(this, CostCalculating.class);
 
-            startService(intentCostCalculating.putExtra("time", 2).putExtra("i", fromId).putExtra("j", toId));
-            startService(intentCostCalculating);
-
-            // Регистрируем широковещательный канал
-            broadcastReceiver = new CostCalculationBroadcastReceiver();
-
-            IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
-            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-            registerReceiver(broadcastReceiver, intentFilter);
-
-            // Активируем кнопку "Заказать"
-            doOrder.setEnabled(true);
+            // Подключаемся к серверу
         }
     }
-
-    @Override
-    protected void onDestroy() { // Что делаем при закрытии приложения
-        super.onDestroy();
-        unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
-    }
-
 
     // Относится к выбору даты и времени
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_DATE) {
-            DatePickerDialog tpd = new DatePickerDialog(this, dateCallBack, myYear, myMonth, myDay);
-            return tpd;
+            //DatePickerDialog tpd = new DatePickerDialog(this, dateCallBack, myYear, myMonth, myDay);
+            //return tpd;
         }
         if (id == DIALOG_TIME) {
             TimePickerDialog tpd = new TimePickerDialog(this, timeCallBack, myHour, myMinute, true);
@@ -179,7 +146,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         return super.onCreateDialog(id);
     }
-
+ /*
     DatePickerDialog.OnDateSetListener dateCallBack = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -191,7 +158,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             dateOrder.setText(myDay + "/" + myMonth + "/" + myYear);
         }
     };
-
+  */
     TimePickerDialog.OnTimeSetListener timeCallBack = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             myHour = hourOfDay;
@@ -199,14 +166,4 @@ public class MainActivity extends Activity implements View.OnClickListener{
             timeOrder.setText(myHour + ":" + myMinute);
         }
     };
-
-    public class CostCalculationBroadcastReceiver extends BroadcastReceiver { // Широковещательный канал, с его помощью мы получаем стоимсть поездки от сервиса
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            double result = intent
-                    .getDoubleExtra(CostCalculating.EXTRA_KEY_OUT, 0.0);
-            cost.setText("Оплата: " + result);
-        }
-    }
 }
