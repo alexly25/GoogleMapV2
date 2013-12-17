@@ -17,13 +17,29 @@ import ru.shem.services.CostCalculating;
 public class MainActivity extends Activity implements View.OnClickListener{
     String myLog = "myLog";
 
-    EditText etFrom;
-    TextView cost;
 
-    CostCalculationBroadcastReceiver broadcastReceiver;
+
+    private EditText etFrom;
+    private EditText etTo;
+    private TextView cost;
+    private Button dateOrder;
+    private Button timeOrder;
+    private Button doOrder;
+    private Integer fromId;
+    private Integer toId;
+
+    private CostCalculationBroadcastReceiver broadcastReceiver;
     private final String LOG = "logMainActivity";
     private final int DIALOG_DATE = 1;
     private final int DIALOG_TIME = 2;
+
+    /**
+     * Переменная определяет для какого поля был вызван activity
+     * true - для поля etFrom
+     * false - для поля etTo
+     */
+    private boolean isFromChose;
+
 
     /**
      * Задание нынешней времени и даты, надо автоматизировать..
@@ -40,10 +56,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        Log.d(LOG, "onCreate");
         Log.d(myLog,"onCreate");
 
         etFrom = (EditText) findViewById(R.id.fromChoice);
         etFrom.setOnClickListener(this);
+
+        etTo = (EditText) findViewById(R.id.toChoice);
+        etTo.setOnClickListener(this);
 
         dateOrder = (Button) findViewById(R.id.dateOrder);
         dateOrder.setOnClickListener(this);
@@ -51,50 +71,44 @@ public class MainActivity extends Activity implements View.OnClickListener{
         timeOrder = (Button) findViewById(R.id.timeOrder);
         timeOrder.setOnClickListener(this);
 
+        doOrder = (Button) findViewById(R.id.doOrder);
+        doOrder.setOnClickListener(this);
+
         cost = (TextView) findViewById(R.id.cost);
         cost.setOnClickListener(this);
-
-        // Создаём исходный поток в IntentService
-        Intent intentCostCalculating = new Intent(this, CostCalculating.class);
-
-        startService(intentCostCalculating.putExtra("time", 2).putExtra("i", 5).putExtra("j", 2));
-        startService(intentCostCalculating);
-
-        broadcastReceiver = new CostCalculationBroadcastReceiver();
-
-        IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
-        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override
     public void onClick(View v) {
 
         Log.d(myLog,"onClick()");
+        Log.d(LOG, "onClick()");
 
+        Intent intent;
         switch (v.getId()){
             case R.id.fromChoice:
-
                 Log.d(myLog,"Select from");
-
-                Intent intent = new Intent(this, MapActivity.class);
-                startActivity(intent);
+                Log.d(LOG, "Select from");
+                isFromChose = true;
+                intent = new Intent(this, MapActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.toChoice:
+                Log.d(LOG, "Select to");
+                Log.d(myLog,"Select to");
 
-                Log.d(myLog,"Select from");
-
+                isFromChose = false;
                 intent = new Intent(this, MapActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.dateOrder:
-
+                Log.d(LOG, "Pick date");
                 Log.d(myLog, "Pick date");
 
                 showDialog(DIALOG_DATE);
                 break;
             case R.id.timeOrder:
-
+                Log.d(LOG, "Pick time");
                 Log.d(myLog, "Pick time");
 
                 showDialog(DIALOG_TIME);
@@ -102,10 +116,54 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    /**
+     -     * Метод принимает данный с MapActivity
+     -     *
+     -     * @param requestCode
+     -     * @param resultCode
+     -     * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
+     -     */
     @Override
-    protected void onDestroy() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (isFromChose) {
+        etFrom.setText(data.getStringExtra("nameBoathouse"));
+        fromId = Integer.valueOf(data.getStringExtra("id"));
+        } else {
+        etTo.setText(data.getStringExtra("nameBoathouse"));
+        toId = Integer.valueOf(data.getStringExtra("id"));
+        }
+        calculation();
+    }
+
+    /**
+    * Расчет стоимости
+    */
+    private void calculation() {
+        Log.d(LOG, "toId: " + toId + ", fromId: " + fromId);
+
+        if (toId != null && fromId != null /* && time == good */) {
+            // Создаём исходный поток в IntentService
+            Intent intentCostCalculating = new Intent(this, CostCalculating.class);
+
+            startService(intentCostCalculating.putExtra("time", 2).putExtra("i", fromId).putExtra("j", toId));
+            startService(intentCostCalculating);
+
+            // Регистрируем широковещательный канал
+            broadcastReceiver = new CostCalculationBroadcastReceiver();
+
+            IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
+            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+            registerReceiver(broadcastReceiver, intentFilter);
+
+            // Активируем кнопку "Заказать"
+            doOrder.setEnabled(true);
+        }
+    }
+
+    @Override
+    protected void onDestroy() { // Что делаем при закрытии приложения
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
     }
 
 
@@ -142,7 +200,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     };
 
-    public class CostCalculationBroadcastReceiver extends BroadcastReceiver {
+    public class CostCalculationBroadcastReceiver extends BroadcastReceiver { // Широковещательный канал, с его помощью мы получаем стоимсть поездки от сервиса
 
         @Override
         public void onReceive(Context context, Intent intent) {

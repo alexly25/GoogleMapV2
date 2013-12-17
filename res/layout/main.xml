@@ -66,7 +66,7 @@
                 android:layout_height="84dp"
                 android:layout_alignParentLeft="true" android:layout_alignParentBottom="true">
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ЗАКАЗАТЬ"
-                    android:id="@+id/button"
+                    android:id="@+id/doOrder"
                     android:enabled="false"
                     android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"/>
         </RelativeLayout>
