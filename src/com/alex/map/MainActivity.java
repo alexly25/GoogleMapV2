@@ -19,14 +19,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private final String LOG = "logMainActivity";
     private final int DIALOG_TIME = 2;
+    protected static final int ADD_MINUTE = 5;
 
-    private TextView tvFrom;
-    private TextView tvTo;
-    private TextView tvCost;
-    private Button btnTime;
-    private Button btnToOrder;
-    private Integer fromId;
-    private Integer toId;
+    protected static int selectedDate;
+    protected static int selectedHour;
+    protected static int selectedMinute;
 
     private CostCalculationBroadcastReceiver broadcastReceiver;
 
@@ -37,17 +34,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private boolean isFromChose;
 
-    /**
-     * Задание нынешней времени и даты, надо автоматизировать..
-     */
-    private int hour = 4;
-    private int minute = 37;
+    private TextView tvFrom;
+    private TextView tvTo;
+    private TextView tvCost;
+    private Button btnTime;
+    private Button btnToOrder;
+    private Integer fromId;
+    private Integer toId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
 
         Log.d(LOG, "onCreate");
 
@@ -66,11 +64,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvCost = (TextView) findViewById(R.id.tvCost);
         tvCost.setOnClickListener(this);
 
-        // Автоматически указываем время отправки
+        // Автоматически задаем время отправки
         Date date = new Date();
-        hour = date.getHours();
-        minute = date.getMinutes() + 5;
-        btnTime.setText("Время отправки: " + hour + ":" + minute);
+        selectedDate = date.getDate();
+        selectedHour = date.getHours();
+        selectedMinute = date.getMinutes() + ADD_MINUTE;
+        btnTime.setText("Отплываем " + selectedDate + " в " + selectedHour + ":" + selectedMinute);
     }
 
     @Override
@@ -124,13 +123,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 Log.d(LOG, "Pick time");
 
-                showDialog(DIALOG_TIME);
+                new TimeDialog(btnTime).show(getSupportFragmentManager(), null);
                 break;
             case R.id.btnToOrder: // Вызывем диалоговое окно с информацией о заказе
 
                 Log.d(LOG, "Pick to order");
 
-                new DialogToOrder(hour, minute).show(getSupportFragmentManager(), "tag");
+                new ToOrderDialog(selectedHour, selectedMinute).show(getSupportFragmentManager(), null);
                 break;
         }
     }
@@ -195,23 +194,4 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-
-    //------------------------------------------------------------------------- Как будет готов новый класс отвечающий за диологовое окно выбора времяни, все что ниже удаляем нахрен!---------------------------
-    // Относится к выбору даты и времени
-    protected Dialog onCreateDialog(int id) {
-        if (id == DIALOG_TIME) {
-            TimePickerDialog tpd = new TimePickerDialog(this, timeCallBack, hour, minute, true);
-            return tpd;
-        }
-        return super.onCreateDialog(id);
-    }
-
-
-    TimePickerDialog.OnTimeSetListener timeCallBack = new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            hour = hourOfDay;
-            MainActivity.this.minute = minute;
-            btnTime.setText("Время отправки: " + hour + ":" + MainActivity.this.minute);
-        }
-    };
 }

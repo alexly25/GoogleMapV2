@@ -23,14 +23,14 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
 
     private final String LOG = "logMapActivity";
     private GoogleMap map;
-    private LatLng defaultCoordinatesMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
 
-        defaultCoordinatesMap = new LatLng(53.217482, 50.112419);
+        LatLng defaultCoordinatesMap = new LatLng(53.217482, 50.112419);
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)) // Получаем карту
                 .getMap();

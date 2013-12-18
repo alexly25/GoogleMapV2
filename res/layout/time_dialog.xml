@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:gravity="center">
+    <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="center_horizontal">
+        <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Дата"
+                    android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Часы"
+                    android:id="@+id/textView1" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Минуты"
+                    android:id="@+id/textView2" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_gravity="center_horizontal">
+            <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/npDate" android:clickable="false"/>
+            <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/npHour"/>
+            <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/npMinute"/>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

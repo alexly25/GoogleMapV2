@@ -17,13 +17,13 @@ import java.util.Date;
  * Time: 5:10
  * To change this template use File | Settings | File Templates.
  */
-public class DialogToOrder extends DialogFragment implements OnClickListener {
+public class ToOrderDialog extends DialogFragment implements OnClickListener {
 
     private String LOG = "logDialogFragment";
     private int hour, minute; // Выбранное клиентом время
     private String message;
 
-    DialogToOrder(int hour, int minute) {
+    ToOrderDialog(int hour, int minute) {
         this.hour = hour;
         this.minute = minute;
 
