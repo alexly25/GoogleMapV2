@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener {
 
     private final String LOG = "logMapActivity";
-    private GoogleMap mMap;
+    private GoogleMap map;
     private LatLng defaultCoordinatesMap;
 
     @Override
@@ -32,10 +32,10 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
 
         defaultCoordinatesMap = new LatLng(53.217482, 50.112419);
 
-        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)) // Получаем карту
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)) // Получаем карту
                 .getMap();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinatesMap, 11)); // Фокусируемся на Самаре
-        mMap.setOnMarkerClickListener(this);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinatesMap, 11)); // Фокусируемся на Самаре
+        map.setOnMarkerClickListener(this);
 
         // Добавление маркеров на левый берег волги
 
@@ -59,7 +59,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
      * @param longitude Долгота
      */
     private void addBoathouse(String name, double latitude, double longitude) {
-        mMap.addMarker(new MarkerOptions()
+        map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
                 .position(new LatLng(latitude, longitude))
                 .title(name));

@@ -35,13 +35,10 @@ public class CostCalculating extends IntentService {
          *  Всего 7 станций.
          */
         // Главная диагональ матрицы
-        distanceMatrix[0][0] =
-                distanceMatrix[1][1] =
-                        distanceMatrix[2][2] =
-                                distanceMatrix[3][3] =
-                                        distanceMatrix[4][4] =
-                                                distanceMatrix[5][5] =
-                                                        distanceMatrix[6][6] = 0;
+        for(int i=0; i<7; i++){
+            distanceMatrix[i][i] = 0;
+        }
+
         // От Ostrov1 к остальным
         distanceMatrix[0][5] = distanceMatrix[5][0] = 6400;
         distanceMatrix[1][5] = distanceMatrix[5][1] = 3980;
