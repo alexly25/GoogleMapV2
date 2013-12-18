@@ -8,22 +8,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
-        <EditText
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:text="Откуда"
-                android:id="@+id/fromChoice"
-                android:editable="false"
-                android:layout_alignParentLeft="true" android:layout_marginLeft="17dp"
-                android:layout_alignParentTop="true" android:layout_marginTop="60dp"/>
-        <EditText
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:text="Куда"
-                android:id="@+id/toChoice"
-                android:editable="false"
-                android:layout_alignLeft="@+id/fromChoice" android:layout_alignParentTop="true"
-                android:layout_marginTop="120dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,21 +15,36 @@
                 android:id="@+id/textView2"
                 android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
                 android:layout_marginTop="18dp" android:textSize="19dp" android:textStyle="bold"/>
-
-        <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:id="@+id/fromToChoice"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Оплата: 0.0"
-                android:id="@+id/cost"
-                android:layout_alignLeft="@+id/dateAndTimeFrame" android:layout_below="@+id/dateAndTimeFrame"
-                android:textSize="18dp" android:layout_marginTop="10dp" android:textStyle="bold"/>
+                android:layout_below="@+id/textView2"
+                android:gravity="center">
+            <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:text="Откуда"
+                    android:id="@+id/fromChoice"
+                    android:editable="false"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"/>
+            <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:text="Куда"
+                    android:id="@+id/toChoice"
+                    android:editable="false"
+                    android:gravity="center"/>
+        </LinearLayout>
         <LinearLayout
                 android:id="@+id/dateAndTimeFrame"
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" android:layout_alignLeft="@+id/fromChoice"
-                android:layout_below="@+id/toChoice" android:baselineAligned="false"
-                android:layout_alignParentRight="false" android:layout_marginRight="20dp">
+                android:layout_height="wrap_content"  android:baselineAligned="false"
+                android:layout_alignParentRight="false"
+                android:layout_below="@id/fromToChoice">
             <Button android:layout_width="wrap_content"
                     android:layout_weight = "1"
                     android:layout_height="50dp"
@@ -61,14 +60,22 @@
                     android:textSize="12dp"
                     android:onClick="onClick" android:layout_marginTop="5dp"/>
         </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Оплата: 0.0"
+                android:id="@+id/cost"
+                android:layout_alignLeft="@+id/dateAndTimeFrame" android:layout_below="@+id/dateAndTimeFrame"
+                android:textSize="24dp" android:layout_marginTop="10dp" android:textStyle="bold"
+                android:layout_marginLeft="7dp"/>
         <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="84dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true" android:layout_alignParentBottom="true">
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ЗАКАЗАТЬ"
-                    android:id="@+id/doOrder"
-                    android:enabled="false"
-                    android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"/>
+                android:id="@+id/doOrder"
+                android:enabled="false"
+                android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

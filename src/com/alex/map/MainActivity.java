@@ -17,8 +17,6 @@ import ru.shem.services.CostCalculating;
 public class MainActivity extends Activity implements View.OnClickListener{
     String myLog = "myLog";
 
-
-
     private EditText etFrom;
     private EditText etTo;
     private TextView cost;
@@ -79,6 +77,32 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
+    protected void onDestroy() { // Что делаем при закрытии приложения
+        super.onDestroy();
+        if(broadcastReceiver != null) {
+            unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) { // Метод сохраняет состояния объектов при повороте экрана и при не хватке памяти
+        super.onSaveInstanceState(outState);
+        outState.putString("date", dateOrder.getText().toString());
+        outState.putString("time", timeOrder.getText().toString());
+        outState.putString("cost", cost.getText().toString());
+        outState.putBoolean("doOrder", doOrder.isEnabled());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) { // метод загружает данные и метода onSaveInstanceState(..)
+        super.onRestoreInstanceState(savedInstanceState);
+        dateOrder.setText(savedInstanceState.getString("date"));
+        timeOrder.setText(savedInstanceState.getString("time"));
+        cost.setText(savedInstanceState.getString("cost"));
+        doOrder.setEnabled(savedInstanceState.getBoolean("doOrder"));
+    }
+
+    @Override
     public void onClick(View v) {
 
         Log.d(myLog,"onClick()");
@@ -124,15 +148,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
      -     * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
      -     */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { // Модицицировал метод, переместив calculate()
         if (isFromChose) {
-        etFrom.setText(data.getStringExtra("nameBoathouse"));
-        fromId = Integer.valueOf(data.getStringExtra("id"));
+            etFrom.setText(data.getStringExtra("nameBoathouse"));
+            fromId = Integer.valueOf(data.getStringExtra("id"));
+            calculation();
         } else {
-        etTo.setText(data.getStringExtra("nameBoathouse"));
-        toId = Integer.valueOf(data.getStringExtra("id"));
+            etTo.setText(data.getStringExtra("nameBoathouse"));
+            toId = Integer.valueOf(data.getStringExtra("id"));
+            calculation();
         }
-        calculation();
     }
 
     /**
@@ -159,13 +184,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
             doOrder.setEnabled(true);
         }
     }
-
-    @Override
-    protected void onDestroy() { // Что делаем при закрытии приложения
-        super.onDestroy();
-        unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
-    }
-
 
     // Относится к выбору даты и времени
     protected Dialog onCreateDialog(int id) {

@@ -22,6 +22,18 @@ public class CostCalculating extends IntentService {
     public void onCreate() {
         super.onCreate();
 
+        /**
+         * Цифра-станция:
+         *  0 = 8-ya proseka
+         *  1 = 3-ya proseka
+         *  2 = Osipenko
+         *  3 = Vilonovskay
+         *  4 = RV
+         *  5 = Ostrov1
+         *  6 = Rozhdestvenno
+         *
+         *  Всего 7 станций.
+         */
         // Главная диагональ матрицы
         distanceMatrix[0][0] =
                 distanceMatrix[1][1] =
