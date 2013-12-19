@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.TextView;
+import ru.shem.services.Variables;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +29,8 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     private final String LOG = "logDialogTime";
     private final int MAX_HOUR = 23;
     private final int MAX_MINUTE = 59;
+
+    private Variables var = Variables.getInstance();
 
     private Button btnTime;
     private NumberPicker npDate;
@@ -102,11 +104,19 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     public void onClick(DialogInterface dialog, int which) {
 
         if (which == Dialog.BUTTON_POSITIVE) {
-
             MainActivity.selectedDate = npDate.getValue();
             MainActivity.selectedHour = npHour.getValue();
             MainActivity.selectedMinute = npMinute.getValue();
-            btnTime.setText("Отплываем " + npDate.getValue() + " в " + npHour.getValue() + ":" + npMinute.getValue());
+            if(npMinute.getValue() < 10) {
+                btnTime.setText("Отплываем " + npDate.getValue() + " в " + npHour.getValue() + ":0" + npMinute.getValue());
+            } else {
+                btnTime.setText("Отплываем " + npDate.getValue() + " в " + npHour.getValue() + ":" + npMinute.getValue());
+            }
+            if((npHour.getValue() <= 6) || (npHour.getValue() >= 23)) { // если ночь
+                var.setDayOrNight(2);
+            } else { // если день
+                var.setDayOrNight(1);
+            }
         }
     }
 

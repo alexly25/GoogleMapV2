@@ -1,7 +1,5 @@
 package com.alex.map;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import ru.shem.services.CostCalculating;
+import ru.shem.services.Variables;
 
 import java.util.Date;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     private final String LOG = "logMainActivity";
-    private final int DIALOG_TIME = 2;
     protected static final int ADD_MINUTE = 5;
 
     protected static int selectedDate;
@@ -26,6 +24,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected static int selectedMinute;
 
     private CostCalculationBroadcastReceiver broadcastReceiver;
+    private Variables var = Variables.getInstance();
 
     /**
      * Переменная определяет для какого поля был вызван activity
@@ -73,8 +72,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
-    protected void onDestroy() { // Что делаем при закрытии приложения
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+
+        // Регистрируем широковещательный канал
+        broadcastReceiver = new CostCalculationBroadcastReceiver();
+
+        IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() { // Что делаем при закрытии приложения
+        super.onPause();
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
         }
@@ -83,6 +94,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onSaveInstanceState(Bundle outState) { // Метод сохраняет состояния объектов при повороте экрана и при не хватке памяти
         super.onSaveInstanceState(outState);
+        outState.putString("from", tvFrom.getText().toString());
+        outState.putString("to", tvTo.getText().toString());
         outState.putString("time", btnTime.getText().toString());
         outState.putString("cost", tvCost.getText().toString());
         outState.putBoolean("btnToOrder", btnToOrder.isEnabled());
@@ -91,6 +104,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) { // метод загружает данные и метода onSaveInstanceState(..)
         super.onRestoreInstanceState(savedInstanceState);
+        tvFrom.setText(savedInstanceState.getString("from"));
+        tvTo.setText(savedInstanceState.getString("to"));
         btnTime.setText(savedInstanceState.getString("time"));
         tvCost.setText(savedInstanceState.getString("cost"));
         btnToOrder.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
@@ -142,7 +157,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * @param data        nameBoathouse - имя лодочной станции, id - номер лодочной станции в матрице расстояний
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) { // Модицицировал метод, переместив calculate()
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data != null) {
 
             if (isFromChose) {
@@ -164,23 +179,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.d(LOG, "toId: " + toId + ", fromId: " + fromId);
 
         if (toId != null && fromId != null) {
-            // Создаём исходный поток в IntentService
-            Intent intentCostCalculating = new Intent(this, CostCalculating.class);
+            if(toId != fromId) {
+                // Создаём исходный поток в IntentService
+                Intent intentCostCalculating = new Intent(this, CostCalculating.class);
 
-            startService(intentCostCalculating.putExtra("time", 2).putExtra("i", fromId).putExtra("j", toId));
+                startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", fromId).putExtra("j", toId));
 
-            // Регистрируем широковещательный канал
-            broadcastReceiver = new CostCalculationBroadcastReceiver();
-
-            IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
-            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-            registerReceiver(broadcastReceiver, intentFilter);
-
-            // Активируем кнопку "Заказать"
-            btnToOrder.setEnabled(true);
+                // Активируем кнопку "Заказать"
+                btnToOrder.setEnabled(true);
+            } else if(toId == fromId) { // проверка на выбор одной и той же станции в обоих полях
+                tvCost.setText("Вы выбрали одинаковые станции!");
+                if(btnToOrder.isEnabled()) {
+                    btnToOrder.setEnabled(false);
+                }
+            }
         } else {
-
-            btnToOrder.setEnabled(false);
+            if(btnToOrder.isEnabled()) {
+                btnToOrder.setEnabled(false);
+            }
         }
     }
 
@@ -188,9 +204,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            double result = intent
+            double costResult = intent
                     .getDoubleExtra(CostCalculating.EXTRA_KEY_OUT, 0.0);
-            tvCost.setText("Оплата: " + result);
+            tvCost.setText("Оплата: " + costResult);
         }
     }
 

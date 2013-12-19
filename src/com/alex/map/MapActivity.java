@@ -39,16 +39,16 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
 
         // Добавление маркеров на левый берег волги
 
-        addBoathouse("8-ya proseka", 53.261874, 50.181009);//id "m0" - все id прописываются сами, число id - номер добавления маркера на карту
-        addBoathouse("3-ya proseka", 53.241320, 50.167147);//id "m1"
-        addBoathouse("Osipenko", 53.214176, 50.126560);//id "m2"
-        addBoathouse("Vilonovskay", 53.200887, 50.096519);//id "m3"
-        addBoathouse("RV", 53.185758, 50.076960);//id "m4"
+        addBoathouse("8-я просека", 53.261874, 50.181009);//id "m0" - все id прописываются сами, число id - номер добавления маркера на карту
+        addBoathouse("3-я просека", 53.241320, 50.167147);//id "m1"
+        addBoathouse("Осипенко", 53.214176, 50.126560);//id "m2"
+        addBoathouse("Вилоновский сп.", 53.200887, 50.096519);//id "m3"
+        addBoathouse("Речной вокзал", 53.185758, 50.076960);//id "m4"
 
         // Добавление маркеров на правый берег волги
 
-        addBoathouse("Ostrov1", 53.232343, 50.115069);//id "m5"
-        addBoathouse("Rozhdestvenno", 53.226423, 50.064595);//id "m6"
+        addBoathouse("Ближний пляж", 53.232343, 50.115069);//id "m5"
+        addBoathouse("Рождественно", 53.226423, 50.064595);//id "m6"
     }
 
     /**
