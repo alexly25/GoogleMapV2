@@ -4,34 +4,33 @@
                 android:layout_height="fill_parent" android:gravity="center">
     <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android">
         <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Дата"
+                    android:text="@string/time_dialog_xml_date"
                     android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Часы"
+                    android:text="@string/time_dialog_xml_hour"
                     android:id="@+id/textView1" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Минуты"
+                    android:text="@string/time_dialog_xml_minute"
                     android:id="@+id/textView2" android:layout_gravity="center_horizontal" android:textStyle="bold"/>
         </TableRow>
         <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:layout_gravity="center_horizontal">
+                android:layout_height="fill_parent">
             <NumberPicker
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/npDate" android:clickable="false"/>
+                    android:id="@+id/npDate" />
             <NumberPicker
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

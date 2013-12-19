@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Boat Taxi</string>
+    <string name="main_xml_title">ЗАКАЗ ЛОДОЧНОГО ТАКСИ</string>
+    <string name="main_xml_from">Откуда</string>
+    <string name="main_xml_to">Куда</string>
+    <string name="main_xml_cost">Оплата 0.0</string>
+    <string name="main_xml_to_order">ЗАКАЗАТЬ</string>
+    <string name="time_dialog_xml_date">Дата</string>
+    <string name="time_dialog_xml_hour">Часы</string>
+    <string name="time_dialog_xml_minute">Минуты</string>
+
 </resources>

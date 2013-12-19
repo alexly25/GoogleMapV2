@@ -7,11 +7,13 @@
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_gravity="center" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+            android:layout_gravity="center"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ЗАКАЗ ЛОДОЧНОГО ТАКСИ"
+                android:text="@string/main_xml_title"
                 android:id="@+id/tvTitle"
                 android:textSize="20dp" android:textStyle="bold"
                 android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
@@ -20,7 +22,7 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:textSize="19dp"
-                android:text="Откуда"
+                android:text="@string/main_xml_from"
                 android:id="@+id/tvFrom"
                 android:layout_alignLeft="@id/tvTitle"
                 android:layout_alignParentTop="true"
@@ -29,7 +31,7 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:textSize="19dp"
-                android:text="Куда"
+                android:text="@string/main_xml_to"
                 android:id="@+id/tvTo"
                 android:layout_alignLeft="@id/tvTitle"
                 android:layout_alignParentTop="true"
@@ -37,7 +39,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Оплата: 0.0"
+                android:text="@string/main_xml_cost"
                 android:textStyle="bold"
                 android:id="@+id/tvCost"
                 android:layout_alignLeft="@id/tvTitle"
@@ -49,10 +51,10 @@
                 android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true" android:layout_marginTop="125dp">
             <Button android:layout_width="255dp" android:layout_weight="1" android:layout_height="wrap_content"
-                    android:text="Выбор времени" android:id="@+id/btnTime" android:textSize="19dp"
+                    android:id="@+id/btnTime" android:textSize="19dp"
                     android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
                     android:layout_marginTop="8dp"/>
-            <Button android:layout_width="255dp" android:layout_height="wrap_content" android:text="ЗАКАЗАТЬ"
+            <Button android:layout_width="255dp" android:layout_height="wrap_content" android:text="@string/main_xml_to_order"
                     android:id="@+id/btnToOrder" android:enabled="false" android:textSize="19dp"
                     android:layout_centerHorizontal="true" android:layout_alignParentBottom="true"/>
         </RelativeLayout>
