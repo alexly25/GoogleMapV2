@@ -13,6 +13,7 @@ public class Variables {
     private static Variables instance;
     private int dayOrNight = 1;
 
+
     public static Variables getInstance() {
         if(instance == null) {
             instance = new Variables();

@@ -9,5 +9,8 @@
     <string name="time_dialog_xml_date">Дата</string>
     <string name="time_dialog_xml_hour">Часы</string>
     <string name="time_dialog_xml_minute">Минуты</string>
+    <string name="toast_booked">Заказ сделан</string>
+    <string name="toast_booking_is_empty">Не верно оформлен заказ</string>
+    <string name="toast_booking_error">Ошибка ввода данных.(чита лог)</string>
 
 </resources>

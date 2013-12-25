@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import ru.shem.services.CostCalculating;
@@ -14,17 +15,17 @@ import ru.shem.services.Variables;
 
 import java.util.Date;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener, TextView.OnKeyListener {
 
     private final String LOG = "logMainActivity";
-    protected static final int ADD_MINUTE = 5;
+    private static final String statusPause = "pause";
+    private static final String statusActual = "actual";
 
-    protected static int selectedDate;
-    protected static int selectedHour;
-    protected static int selectedMinute;
 
     private CostCalculationBroadcastReceiver broadcastReceiver;
     private Variables var = Variables.getInstance();
+    private HistoryBookings historyBookings;
+    private Booking newBooking;
 
     /**
      * Переменная определяет для какого поля был вызван activity
@@ -33,20 +34,72 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private boolean isFromChose;
 
+    // Не удалять!
+    /*private EditText tvFrom;
+    private EditText tvTo;*/
     private TextView tvFrom;
     private TextView tvTo;
     private TextView tvCost;
     private Button btnTime;
     private Button btnToOrder;
+    private ListView lvHistory;
     private Integer fromId;
     private Integer toId;
+    private TabHost tabHost;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
 
         Log.d(LOG, "onCreate");
+        setContentView(R.layout.m);
+
+        init();
+        historyBookings = new HistoryBookings(this, lvHistory);
+
+        // Востанавливаем состояние view компонентов перед выполнением Activity
+        newBooking = historyBookings.getBookingPause();
+        resetViews();
+    }
+
+    /**
+     * Метод перезаписывает значения View элиментов на экране заказа
+     */
+    protected void resetViews() {
+
+        Log.d(LOG, "resetViews()");
+
+        tvFrom.setText(newBooking.getBoathouseFrom());
+        tvTo.setText(newBooking.getBoathouseTo());
+        btnTime.setText(newBooking.getTime());
+        tvCost.setText(newBooking.getCostToString());
+    }
+
+    /**
+     * Находим View коммпоненты
+     */
+    private void init() {
+
+        tabHost = (TabHost) findViewById(android.R.id.tabhost);
+
+        // инициализация
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec;
+
+        // Находим вкладки
+
+        tabSpec = tabHost.newTabSpec("tag1");
+        tabSpec.setIndicator("Заказы");
+        tabSpec.setContent(R.id.tvHistory);
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("tag2");
+        tabSpec.setIndicator("Сделать заказ");
+        tabSpec.setContent(R.id.llBooking);
+        tabHost.addTab(tabSpec);
+
+        // Находим остольные элименты
 
         tvFrom = (TextView) findViewById(R.id.tvFrom);
         tvFrom.setOnClickListener(this);
@@ -63,17 +116,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvCost = (TextView) findViewById(R.id.tvCost);
         tvCost.setOnClickListener(this);
 
-        // Автоматически задаем время отправки
-        Date date = new Date();
-        selectedDate = date.getDate();
-        selectedHour = date.getHours();
-        selectedMinute = date.getMinutes() + ADD_MINUTE;
-        btnTime.setText("Отплываем " + selectedDate + " в " + selectedHour + ":" + selectedMinute);
+        lvHistory = (ListView) findViewById(R.id.lvHistory);
+
+        // Не удалять!
+        /*tvFrom = (EditText) findViewById(R.id.tvFrom);
+        tvFrom.setOnClickListener(this);
+        tvFrom.setOnKeyListener(this);
+
+        tvTo = (EditText) findViewById(R.id.tvTo);
+        tvTo.setOnClickListener(this);
+        tvTo.setOnKeyListener(this);*/
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(LOG, "onResume()");
 
         // Регистрируем широковещательный канал
         broadcastReceiver = new CostCalculationBroadcastReceiver();
@@ -81,14 +140,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(broadcastReceiver, intentFilter);
+
     }
 
+
     @Override
-    protected void onPause() { // Что делаем при закрытии приложения
-        super.onPause();
+    protected void onPause() {
+
+        Log.d(LOG, "onPause()");
+
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
         }
+
+        /*// Сохранем состояние view компонентов
+        newBooking.setStatus(statusPause);
+        historyBookings.addBooking(newBooking);
+        Log.d(LOG, "onPause() historyBookings.addBooking(newBooking) newBooking: " + newBooking.toString());
+        */super.onPause();
     }
 
     @Override
@@ -117,6 +186,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.d(LOG, "onClick()");
 
         Intent intent;
+
         switch (v.getId()) {
             case R.id.tvFrom: // Вызываем карту для выбора пункта отправки
 
@@ -138,15 +208,34 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 Log.d(LOG, "Pick time");
 
-                new TimeDialog(btnTime).show(getSupportFragmentManager(), null);
+                new TimeDialog(newBooking).show(getSupportFragmentManager(), null);
                 break;
-            case R.id.btnToOrder: // Вызывем диалоговое окно с информацией о заказе
+            case R.id.btnToOrder: // Сохраняем данные заказа
 
-                Log.d(LOG, "Pick to order");
+                Log.d(LOG, "onClick() Pick to order");
 
-                new ToOrderDialog(selectedHour, selectedMinute).show(getSupportFragmentManager(), null);
+                newBooking.setStatus(statusActual);
+
+                if (newBooking.isEmpty() // Если не коректные поля переменных заказа
+                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
+
+                    /*Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG);
+                    Log.d(LOG, "newBooking.isEmpty() = " + newBooking.isEmpty()
+                            + ", newBooking.getDate().getTime()" + newBooking.getDate().toGMTString()
+                            + " < new Date().getTime()" + new Date().toGMTString());*/
+
+                } else if (historyBookings.addBooking(newBooking)) { // Если заказ успешно сохранился
+                    tabHost.setCurrentTabByTag("tag1");
+                }
+                Log.d(LOG, "newBooking.isEmpty() = " + newBooking.isEmpty()
+                        + ", newBooking.getDate().getTime()" + newBooking.getDate().toGMTString()
+                        + " < new Date().getTime()" + new Date().toGMTString()
+                        + "=" + (newBooking.getDate().getTime() < new Date().getTime()));
+
+                //new ToOrderDialog(selectedHour, selectedMinute).show(getSupportFragmentManager(), null);
                 break;
         }
+
     }
 
     /**
@@ -158,13 +247,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d(LOG, "onActivityResult()");
         if (data != null) {
 
+            String nameBoathouse = data.getStringExtra("nameBoathouse");
+
+            Log.d(LOG, "onActivityResult() " + nameBoathouse);
+
             if (isFromChose) {
-                tvFrom.setText(data.getStringExtra("nameBoathouse"));
+                tvFrom.setText(nameBoathouse);
+                newBooking.setBoathouseFrom(nameBoathouse);
                 fromId = Integer.valueOf(data.getStringExtra("id"));
             } else {
-                tvTo.setText(data.getStringExtra("nameBoathouse"));
+
+                tvTo.setText(nameBoathouse);
+                newBooking.setBoathouseTo(nameBoathouse);
                 toId = Integer.valueOf(data.getStringExtra("id"));
             }
 
@@ -179,7 +277,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.d(LOG, "toId: " + toId + ", fromId: " + fromId);
 
         if (toId != null && fromId != null) {
-            if(toId != fromId) {
+            if (toId != fromId) {
                 // Создаём исходный поток в IntentService
                 Intent intentCostCalculating = new Intent(this, CostCalculating.class);
 
@@ -187,17 +285,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 // Активируем кнопку "Заказать"
                 btnToOrder.setEnabled(true);
-            } else if(toId == fromId) { // проверка на выбор одной и той же станции в обоих полях
+            } else if (toId == fromId) { // проверка на выбор одной и той же станции в обоих полях
                 tvCost.setText("Вы выбрали одинаковые станции!");
-                if(btnToOrder.isEnabled()) {
+                if (btnToOrder.isEnabled()) {
                     btnToOrder.setEnabled(false);
                 }
             }
-        } else {
-            if(btnToOrder.isEnabled()) {
-                btnToOrder.setEnabled(false);
-            }
+        } else if (btnToOrder.isEnabled()) {
+            btnToOrder.setEnabled(false);
+
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        // Не удалять!
+        /*newBooking.setBoathouseFrom(tvFrom.getText().toString());
+        newBooking.setBoathouseTo(tvTo.getText().toString());*/
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public class CostCalculationBroadcastReceiver extends BroadcastReceiver { // Широковещательный канал, с его помощью мы получаем стоимсть поездки от сервиса
@@ -206,8 +311,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
             double costResult = intent
                     .getDoubleExtra(CostCalculating.EXTRA_KEY_OUT, 0.0);
-            tvCost.setText("Оплата: " + costResult);
+            newBooking.setCost((int) costResult);
+            resetViews();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG, "onDestroy()");
     }
 
 }

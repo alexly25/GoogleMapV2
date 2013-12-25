@@ -29,19 +29,24 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     private final String LOG = "logDialogTime";
     private final int MAX_HOUR = 23;
     private final int MAX_MINUTE = 59;
+    private final int ADD_MINUTE = 5;
 
     private Variables var = Variables.getInstance();
 
-    private Button btnTime;
     private NumberPicker npDate;
     private NumberPicker npHour;
     private NumberPicker npMinute;
     private int minDate;
     private int minHour;
     private int minMinute;
+    private int selectedDate;
+    private int selectedHour;
+    private int selectedMinute;
+    private Booking booking;
+    private Date d;
 
-    public TimeDialog(Button btnTime) {
-        this.btnTime = btnTime;
+    public TimeDialog(Booking booking) {
+        this.booking = booking;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
             builder = new AlertDialog.Builder(getActivity());
 
-            Date d = new Date();
+            d = new Date();
             minDate = d.getDate();
             minHour = d.getHours();
             minMinute = d.getMinutes();
@@ -69,7 +74,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
             setValues(npDate = (NumberPicker) v.findViewById(R.id.npDate), minDate, dayInMonth, minDate);
             setValues(npHour = (NumberPicker) v.findViewById(R.id.npHour), minHour, MAX_HOUR, minHour);
-            setValues(npMinute = (NumberPicker) v.findViewById(R.id.npMinute), minMinute, MAX_MINUTE, minMinute + MainActivity.ADD_MINUTE);
+            setValues(npMinute = (NumberPicker) v.findViewById(R.id.npMinute), minMinute, MAX_MINUTE, minMinute + ADD_MINUTE);
 
             builder.setView(v)
                     .setTitle("Время отправки")
@@ -104,15 +109,18 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     public void onClick(DialogInterface dialog, int which) {
 
         if (which == Dialog.BUTTON_POSITIVE) {
-            MainActivity.selectedDate = npDate.getValue();
-            MainActivity.selectedHour = npHour.getValue();
-            MainActivity.selectedMinute = npMinute.getValue();
-            if(npMinute.getValue() < 10) {
-                btnTime.setText("Отплываем " + npDate.getValue() + " в " + npHour.getValue() + ":0" + npMinute.getValue());
-            } else {
-                btnTime.setText("Отплываем " + npDate.getValue() + " в " + npHour.getValue() + ":" + npMinute.getValue());
-            }
-            if((npHour.getValue() <= 6) || (npHour.getValue() >= 23)) { // если ночь
+            selectedDate = npDate.getValue();
+            selectedHour = npHour.getValue();
+            selectedMinute = npMinute.getValue();
+
+            booking.setDate(new Date(d.getYear(),
+                    d.getMonth(),
+                    selectedDate,
+                    selectedHour,
+                    selectedMinute + ADD_MINUTE));
+            ((MainActivity)getActivity()).resetViews();
+
+            if ((selectedHour <= 6) || (selectedHour >= 23)) { // если ночь
                 var.setDayOrNight(2);
             } else { // если день
                 var.setDayOrNight(1);
