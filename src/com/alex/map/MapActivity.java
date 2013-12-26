@@ -19,9 +19,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Time: 2:50
  * To change this template use File | Settings | File Templates.
  */
-public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener {
+public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
-    private final String LOG = "logMapActivity";
+    private static final String LOG = "logMapActivity";
     private GoogleMap map;
 
 
@@ -36,6 +36,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
                 .getMap();
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinatesMap, 11)); // Фокусируемся на Самаре
         map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
 
         // Добавление маркеров на левый берег волги
 
@@ -75,12 +76,21 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
     public boolean onMarkerClick(Marker marker) {
         Log.d(LOG, "onMarkerClick");
 
+        if (!marker.isInfoWindowShown()) {
+
+            marker.showInfoWindow();
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Log.d(LOG,"onInfoWindowClick()");
         Intent intent = new Intent();
         intent.putExtra("nameBoathouse", marker.getTitle());
         intent.putExtra("id", marker.getId().substring(1));
         setResult(RESULT_OK, intent);
         finish();
-
-        return false;
     }
 }

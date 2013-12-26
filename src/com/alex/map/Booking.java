@@ -15,7 +15,8 @@ import java.util.GregorianCalendar;
  */
 public class Booking {
 
-    private final int ADD_MINUTE = 5;
+    private static final int ADD_MINUTE = 5;
+    private static final String statusActual = "actual";
 
     private String boathouseFrom;
     private String boathouseTo;
@@ -38,6 +39,16 @@ public class Booking {
         this.status = status;
     }
 
+    public String getInfo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Статус: ").append((getStatus().equals(statusActual)) ? "Актуален" : "Не актуален")
+                .append(", Из: ").append(boathouseFrom)
+                .append(", В: ").append(boathouseTo)
+                .append(", Дата: ").append(date.getDate()).append(" ").append(date.getHours())
+                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
+        return sb.toString();
+    }
+
     public String getCostToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Оплата: ").append(cost);
@@ -46,21 +57,20 @@ public class Booking {
 
     public String getTime() {
         StringBuilder sb = new StringBuilder();
-        int minutes = date.getMinutes();
-
         sb.append("Отплываем  ").append(date.getDate())
                 .append(" в ").append(date.getHours())
-                .append(":").append((minutes < 10) ? ("0" + minutes) : minutes);
+                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
         return sb.toString();
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("From ").append(boathouseFrom)
-                .append(", to ").append(boathouseTo)
-                .append(", date: ").append(date.getDate()).append(" ").append(date.getHours()).append(":").append(date.getMinutes())
-                .append(", cost: ").append(cost)
-                .append(", status: ").append(status);
+        sb.append("Из: ").append(boathouseFrom)
+                .append(", в: ").append(boathouseTo)
+                .append(", дата: ").append(date.getDate()).append(" ").append(date.getHours())
+                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes())
+                .append(", цена: ").append(cost)
+                .append(", статус: ").append(status);
         return sb.toString();
     }
 
@@ -116,5 +126,4 @@ public class Booking {
                 d.getHours(),
                 d.getMinutes() + ADD_MINUTE);
     }
-
 }

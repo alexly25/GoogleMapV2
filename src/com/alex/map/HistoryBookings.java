@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,11 +27,13 @@ public class HistoryBookings {
     private static final String LOG = "logHistoryBooking";
     private static final String statusPause = "pause";
     private static final String statusActual = "actual";
+    private static final String statusNoActual = "no_actual";
     private static final String tableName = "history";
 
     private ArrayList<String> alHistory;
     private ArrayAdapter<String> arrayAdapter;
     private SQLite sqLite;
+    private HashMap<Integer, Booking> bookingHashMap;
 
     public HistoryBookings(Context context, ListView lvHistory) {
 
@@ -39,6 +42,7 @@ public class HistoryBookings {
         alHistory = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, alHistory);
         sqLite = new SQLite(context);
+        bookingHashMap = new HashMap<Integer, Booking>();
 
         lvHistory.setAdapter(arrayAdapter);
     }
@@ -48,13 +52,54 @@ public class HistoryBookings {
      */
     public void checkStatus() {
 
-        // Допишу позже
+        Log.d(LOG, "checkStatus()");
 
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        Date date = new Date();
+
+        try {
+
+            db = sqLite.getWritableDatabase(); // подключаемся к БД
+
+            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = '" + statusActual + "'", null);
+            Log.d(LOG, "checkStatus() c.getCount() actual: " + c.getCount());
+
+            db.execSQL("UPDATE history SET status = '" + statusNoActual + "' WHERE date < " + date.getTime() + "");
+            Log.d(LOG, "checkStatus() UPDATE history SET status = '" + statusNoActual + "' WHERE date < " + date.getTime() + "");
+
+            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = '" + statusActual + "'", null);
+            Log.d(LOG, "checkStatus() c.getCount() actual: " + c.getCount());
+
+            outBookings();
+
+        } catch (Exception e) {
+
+            Log.d(LOG, "!!!!!checkStatus() catch error: " + e.toString());
+
+        } finally {
+            c.close();
+            db.close();
+        }
+
+    }
+
+    /**
+     * Метод возвращает объект класса Booking который находиться в списке на позиции position.
+     * @param position Номер запрашиваемого объекта
+     * @return Запрашиваемый объект
+     */
+    public Booking getBooking(int position) {
+
+        Log.d(LOG, "getBookingPause()");
+
+        return bookingHashMap.get(position);
     }
 
     /**
      * Метод получает строку из БД со статусом statusPause, записывает ее данные в booking,
      * с которого будет считываться состояние, и удаляет эту строку из БД.
+     *
      * @return Возвращает объект класса Booking хранящий состояние перед закрытием программы.
      */
     public Booking getBookingPause() {
@@ -69,7 +114,7 @@ public class HistoryBookings {
 
             db = sqLite.getWritableDatabase(); // подключаемся к БД
 
-            c = db.rawQuery("SELECT * FROM "+tableName+" WHERE status = 'pause'", null);
+            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = 'pause'", null);
 
             if (c.getCount() > 1) {
                 Log.d(LOG, "!!!!!getBookingPause() c.getCount(): " + c.getCount());
@@ -80,8 +125,8 @@ public class HistoryBookings {
                 setBookingValues(c, booking);
                 Log.d(LOG, "getBookingPause() booking.toString() " + booking.toString());
 
-                db.execSQL("DELETE FROM "+tableName+" WHERE status = 'pause'");
-                Log.d(LOG, "getBookingPause() Delete FROM "+tableName+" WHERE status = 'pause'");
+                db.execSQL("DELETE FROM " + tableName + " WHERE status = 'pause'");
+                Log.d(LOG, "getBookingPause() Delete FROM " + tableName + " WHERE status = 'pause'");
 
                 outBookings();
             }
@@ -99,6 +144,7 @@ public class HistoryBookings {
 
     /**
      * Метод добавляет объект класса Booking в БД. Если статус заказа актуальный, то обновляется лист с заказами.
+     *
      * @param booking Записываемый объект
      * @return true - запись данных в БД удалась, false - запись данных в БД не удалась
      */
@@ -144,16 +190,20 @@ public class HistoryBookings {
             if (c.moveToFirst()) {
 
                 alHistory.clear();
+                bookingHashMap.clear();
                 Log.d(LOG, "outBooking() clear list");
+                int i = -1;
 
                 do {
-
+                    i++;
                     Booking booking = new Booking();
                     setBookingValues(c, booking);
                     Log.d(LOG, "outBookings() add into list: " + booking.toString());
 
-                    alHistory.add(booking.toString());
+                    alHistory.add(booking.getInfo());
                     arrayAdapter.notifyDataSetChanged();
+                    bookingHashMap.put(i, booking);
+                    Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size()+ " get("+i+"): "+bookingHashMap.get(0).toString());
 
                     // переход на следующую строку
                     // а если следующей нет (текущая - последняя), то false - выходим из цикла
@@ -175,7 +225,8 @@ public class HistoryBookings {
 
     /**
      * Метод записывает значения с объекта типа Cursor, в объект типа Booking
-     * @param c Переменная с которой происходит считывание
+     *
+     * @param c       Переменная с которой происходит считывание
      * @param booking Переменная в которую происходит запись
      */
     private void setBookingValues(Cursor c, Booking booking) {
@@ -188,6 +239,7 @@ public class HistoryBookings {
 
     /**
      * Вспомагательный метод для добавления
+     *
      * @param booking
      * @return
      */

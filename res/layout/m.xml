@@ -52,18 +52,6 @@
                                 android:id="@+id/textView" android:textSize="18dp" android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_margin="10dp"/>
-                        <!--EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="New EditText"
-                                android:id="@+id/tvFrom"
-                                android:layout_margin="10dp" android:textSize="20dp"/>
-                        <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="New EditText"
-                                android:id="@+id/tvTo"
-                                android:layout_margin="10dp" android:textSize="20dp"/-->
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -90,7 +78,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/main_xml_to_order"
                                 android:id="@+id/btnToOrder" android:layout_margin="10dp" android:textSize="18dp"
-                                />
+                                android:enabled="false"/>
 
                     </LinearLayout>
                 </ScrollView>
