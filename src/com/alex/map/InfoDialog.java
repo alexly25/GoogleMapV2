@@ -16,7 +16,7 @@ import ru.shem.services.Variables;
  * User: Madness
  * Date: 06.01.14
  */
-public class HistoryActivity extends FragmentActivity implements View.OnClickListener,  AdapterView.OnItemClickListener {
+public class InfoDialog extends FragmentActivity implements View.OnClickListener,  AdapterView.OnItemClickListener {
     private static final String LOG = "logMainActivity";
 
     private static Variables var = Variables.getInstance();
