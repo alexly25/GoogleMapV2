@@ -23,7 +23,7 @@ public class InfoDialog extends DialogFragment implements OnClickListener {
     private static final String statusActual = "actual";
     private Booking booking;
 
-    ShowInfoDialog(Booking booking) {
+    InfoDialog(Booking booking) {
         this.booking = booking;
     }
 
