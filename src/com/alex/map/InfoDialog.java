@@ -1,88 +1,59 @@
 package com.alex.map;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import ru.shem.services.Variables;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Madness
- * Date: 06.01.14
+ * User: alexis
+ * Date: 18.12.13
+ * Time: 5:10
+ * To change this template use File | Settings | File Templates.
  */
-public class InfoDialog extends FragmentActivity implements View.OnClickListener,  AdapterView.OnItemClickListener {
-    private static final String LOG = "logMainActivity";
+public class InfoDialog extends DialogFragment implements OnClickListener {
 
-    private static Variables var = Variables.getInstance();
+    private static final String LOG = "logDialogFragment";
+    private static final String statusActual = "actual";
+    private Booking booking;
 
-    private ListView lvHistory;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
-
-        init();
-        var.setHistoryBookings(new HistoryBookings(this, lvHistory));
+    ShowInfoDialog(Booking booking) {
+        this.booking = booking;
     }
 
     @Override
-    protected void onResume() {
-        Log.d(LOG, "onResume()");
-        super.onResume();
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        var.getHistoryBookings().checkStatus();
+        Log.d(LOG, "onCreateDialog()");
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(getActivity())
+                .setTitle("Информация о заказе")
+                .setPositiveButton("Ok", this)
+                .setMessage(getInfo());
+        return adb.create();
+    }
+
+    public String getInfo() {
+        StringBuilder sb = new StringBuilder();
+        Date date = booking.getDate();
+        sb.append("Место отправки: ").append(booking.getBoathouseFrom()).append("\n")
+                .append("Место прибытия: ").append(booking.getBoathouseTo()).append("\n")
+                .append("Дата отравки: ").append(date.getDate())
+                .append(" в ").append(date.getHours()).append(":")
+                .append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes() + "\n")
+                .append("Стоимость: ").append(booking.getCost()).append(" руб. \n")
+                .append("Статус заказа: ").append((booking.getStatus().equals(statusActual)) ? "Актуален" : "Не актуален");
+        return sb.toString();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch(item.getItemId()) {
-            case R.id.btnAddOrder:
-                intent = new Intent(this, OrderActivity.class);
-
-                startActivity(intent);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    private void init() {
-        lvHistory = (ListView) findViewById(R.id.lvHistory);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Log.d(LOG, "onItemClick()");
-
-        try {
-
-            Booking booking = var.getHistoryBookings().getBooking(position); // Получаем кликнутый заказ
-            Log.d(LOG, "onItemClick() booking.toString(): " + booking.toString());
-
-            new InfoDialog(booking).show(getSupportFragmentManager(), null); // Выводим информацию о нем
-
-        } catch (Exception e) {
-            Log.d(LOG,"!!!!! onItemClick() catch error: " + e.toString());
-        }
+    public void onClick(DialogInterface dialog, int which) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
