@@ -14,6 +14,10 @@ import ru.shem.services.Variables;
 
 import java.util.Date;
 
+/**
+ * ВЕЩИ ДОЛЖНЫ НЗЫВАТЬСЯ СВОИМИ ИМЕНАМИ!!
+ * Бывший MainActivity, больше этот класс не стартовый!!!
+ */
 public class OrderActivity extends FragmentActivity implements View.OnClickListener {
 
     private static final String LOG = "logMainActivity";

@@ -6,19 +6,22 @@ import com.alex.map.HistoryBookings;
  * Created with IntelliJ IDEA.
  * User: Madness
  * Date: 19.12.13
- * Time: 13:24
- * To change this template use File | Settings | File Templates.
+ *
+ * Здесь распологаются переменные используемые в более чем одном классе
  */
 public class Variables {
     private static Variables instance;
 
     private int dayOrNight = 1;
 
+    // ID от куда и куда, они обнулялись почему то. Теперь нет.
     private Integer fromId;
     private Integer toId;
 
+    // Переменная используется и в OrderActivity и в HistoryActivity
     private HistoryBookings historyBookings;
 
+    // Тоже обнулялась при выборе "Откуда"/"Куда"
     private boolean isFromChose;
 
     public static Variables getInstance() {
@@ -29,6 +32,8 @@ public class Variables {
     }
 
     public Variables() { }
+
+    // всё ниже - Геттеры, сеттеры и проверки булевых значений
 
     public int getDayOrNight() {
         return dayOrNight;

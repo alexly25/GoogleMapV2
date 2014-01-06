@@ -15,6 +15,9 @@ import ru.shem.services.Variables;
  * Created with IntelliJ IDEA.
  * User: Madness
  * Date: 06.01.14
+ *
+ * СТАРТОВЫЙ ЭКРАН!!
+ * Экран для просмотра всех заказов с кнопкой "Создать заказ" в ActionBar
  */
 public class HistoryActivity extends FragmentActivity implements View.OnClickListener,  AdapterView.OnItemClickListener {
     private static final String LOG = "logMainActivity";
@@ -29,6 +32,7 @@ public class HistoryActivity extends FragmentActivity implements View.OnClickLis
         setContentView(R.layout.history);
 
         init();
+        // Теперь переменные которые используются больше чем в одном экране хранятся в Variables
         var.setHistoryBookings(new HistoryBookings(this, lvHistory));
     }
 
@@ -37,17 +41,18 @@ public class HistoryActivity extends FragmentActivity implements View.OnClickLis
         Log.d(LOG, "onResume()");
         super.onResume();
 
+        // Обновление списка истории
         var.getHistoryBookings().checkStatus();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { // создание ActionBar
         getMenuInflater().inflate(R.menu.action_bar, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { // Обработчик нажатия на кнопки в ActionBar
         Intent intent;
         switch(item.getItemId()) {
             case R.id.btnAddOrder:
@@ -61,12 +66,13 @@ public class HistoryActivity extends FragmentActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) { // зачем нибудь пригодится
 
     }
 
     private void init() {
         lvHistory = (ListView) findViewById(R.id.lvHistory);
+        lvHistory.setOnItemClickListener(this);
     }
 
     @Override

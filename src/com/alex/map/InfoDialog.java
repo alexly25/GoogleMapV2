@@ -14,8 +14,8 @@ import java.util.Date;
  * Created with IntelliJ IDEA.
  * User: alexis
  * Date: 18.12.13
- * Time: 5:10
- * To change this template use File | Settings | File Templates.
+ *
+ * Бывший ShowInfoDialog, были траблы с гитом. Изменил
  */
 public class InfoDialog extends DialogFragment implements OnClickListener {
 
