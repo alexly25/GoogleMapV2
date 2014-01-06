@@ -1,12 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidDesignerProfile">
+    <option name="fullProfile">
+      <profile>
+        <option name="device" value="2.7in QVGA" />
+        <option name="deviceConfiguration" value="Portrait" />
+        <option name="localeLanguage" value="en" />
+        <option name="targetHashString" value="android-14" />
+        <option name="theme" value="Theme" />
+      </profile>
+    </option>
+    <option name="selection" value="[Full]" />
+  </component>
+  <component name="AndroidLayoutPreviewToolWindow">
+    <option name="state">
+      <GlobalState>
+        <option name="device" value="2.7in QVGA" />
+        <option name="dockMode" value="" />
+        <option name="nightMode" value="notnight" />
+        <option name="targetHashString" value="android-14" />
+        <option name="theme" value="Theme" />
+        <option name="visible" value="false" />
+      </GlobalState>
+    </option>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="log" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" name="Default" comment="" />
+    <list default="true" id="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" name="Default" comment="В ресурсы проекта добавлено изображение маркера. В main.xml изменил размер шрифта у TextView. Добавил карту.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GoogleMapV2.iml" afterPath="$PROJECT_DIR$/GoogleMapV2.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.properties" afterPath="$PROJECT_DIR$/project.properties" />
+    </list>
+    <list id="4d87095e-4cad-44e1-aa2d-f73603cfe516" name="Failed commit: Default" comment="ОБЯЗАТЕЛЬНО! В AndroidManifest измените API ключ на свой!!&#10;Добавил кнопку в Action bar на экране истории, немного переделал всё до чего дотянулся.&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="GoogleMapV2.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1386969299209" ignored="false" />
-    <file path="$PROJECT_DIR$/res/layout/main.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1386969309612" ignored="false" />
-    <file path="$PROJECT_DIR$/res/values/strings.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1386969309612" ignored="false" />
+    <file path="/Dummy.txt" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389028516717" ignored="false" />
+    <file path="/MapActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387229215278" ignored="false" />
+    <file path="/MainActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387932708365" ignored="false" />
+    <file path="$PROJECT_DIR$/../googMap233/src/com/alex/map/MapActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387225899395" ignored="false" />
+    <file path="$PROJECT_DIR$/../googMap233/src/com/alex/map/MainActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387231713106" ignored="false" />
+    <file path="$PROJECT_DIR$/../googMap233/AndroidManifest.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387231884575" ignored="false" />
+    <file path="/fragment.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389025733014" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/values/strings.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387712118279" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/AndroidManifest.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387800548370" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/MyActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387800221592" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/main.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387721952544" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/build.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387232011639" ignored="false" />
+    <file path="$PROJECT_DIR$/../googMap233/res/layout/main.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387232878021" ignored="false" />
+    <file path="/main.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387414270796" ignored="false" />
+    <file path="/MyActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387800218133" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/DateTimePicker.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387311005819" ignored="false" />
+    <file path="/CostCalculating.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387324191794" ignored="false" />
+    <file path="/DialogToOrder.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387405143188" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/Dialog2.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387360688727" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/project.properties" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387394987641" ignored="false" />
+    <file path="/DialogTime.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387405120184" ignored="false" />
+    <file path="/OldClassDialogTime.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387367158857" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/DialogTime.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387401216055" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/btn.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387381715708" ignored="false" />
+    <file path="/btn.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387381715708" ignored="false" />
+    <file path="/AndroidManifest.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389024836962" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/gen/com/example/testAndr/R.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387800580307" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/gen/com/example/testAndr/BuildConfig.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387800590238" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/.idea/modules.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387394958613" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/.idea/workspace.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387403488192" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/TimeDialog.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387407252734" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/time_dialog.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387404980943" ignored="false" />
+    <file path="/time_dialog.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387415163232" ignored="false" />
+    <file path="/TimeDialog.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387924943361" ignored="false" />
+    <file path="/strings.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389015900897" ignored="false" />
+    <file path="/Booking.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387932082609" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/sql.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387664114085" ignored="false" />
+    <file path="/sql.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387658143632" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/main_two.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387731276630" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/drawable/tab_icon_selector.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387723133350" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/m.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387735120715" ignored="false" />
+    <file path="/m.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387740921555" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/res/layout/tab_header.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387725105864" ignored="false" />
+    <file path="/tab_header.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387725105864" ignored="false" />
+    <file path="/main_two.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387728360919" ignored="false" />
+    <file path="/HistoryBookings.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387929491314" ignored="false" />
+    <file path="$PROJECT_DIR$/../testAndr/src/com/example/testAndr/SqlActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387803058158" ignored="false" />
+    <file path="/SqlActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1387803033391" ignored="false" />
+    <file path="/Variables.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389018525377" ignored="false" />
+    <file path="/history.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389020205680" ignored="false" />
+    <file path="/action_bar.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389017364342" ignored="false" />
+    <file path="/HistoryActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389026611580" ignored="false" />
+    <file path="/OrderActivity.java" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389023596378" ignored="false" />
+    <file path="/order.xml" changelist="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" time="1389023655716" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +100,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -67,10 +158,88 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="OrderActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alex/map/OrderActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="52" column="4" selection-start="1492" selection-end="1887" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Variables.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/shem/services/Variables.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="32" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoDialog.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alex/map/InfoDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="11" selection-start="759" selection-end="759" vertical-scroll-proportion="-3.24">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alex/map/HistoryActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="2" selection-start="2338" selection-end="2338" vertical-scroll-proportion="-38.96">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="history.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/history.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="40" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="38" selection-start="1761" selection-end="1761" vertical-scroll-proportion="0.7883472">
+            <state line="34" column="162" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/order.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="34" selection-start="1935" selection-end="1935" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimeDialog.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/alex/map/TimeDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="13" selection-start="662" selection-end="662" vertical-scroll-proportion="-3.812357">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryBookings.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/alex/map/HistoryBookings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="91" column="19" selection-start="2944" selection-end="2944" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -84,9 +253,11 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
     <option name="myDateState">
       <MyDateState />
     </option>
@@ -94,14 +265,52 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/GoogleMapV2.iml" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/TimeDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/Booking.java" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/ShowInfoDialog.java" />
+        <option value="$PROJECT_DIR$/res/layout/m.xml" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/res/layout/action_bar.xml" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/MainActivity.java" />
+        <option value="$PROJECT_DIR$/res/menu/action_bar.xml" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/MapActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/history.xml" />
+        <option value="$PROJECT_DIR$/src/ru/shem/services/Variables.java" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/OrderActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/order.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/HistoryActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/alex/map/InfoDialog.java" />
       </list>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AndroidDomInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -164,7 +373,79 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="map" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleMapV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -192,7 +473,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-hdpi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -202,18 +487,37 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GoogleMapV2.1" />
+    <property name="AndroidLayoutSelectedEditor" value="text-editor" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="FA34FW402206" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/android-support-v4.jar!/" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="4.1" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="project.structure.side.proportion" value="0.2" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\programs\programming\my\idea\GoogleMapV2\res\layout" />
+      <recent name="D:\programs\programming\my\idea\GoogleMapV2\res\drawable" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\AndroidProjects\GoogleMapV2\res\menu" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.GoogleMapV2">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -222,25 +526,30 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -269,6 +578,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -325,8 +647,8 @@
     </configuration>
     <configuration default="false" name="GoogleMapV2" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="GoogleMapV2" />
-      <option name="ACTIVITY_CLASS" value="com.alex.map.MainActivity" />
-      <option name="MODE" value="specific_activity" />
+      <option name="ACTIVITY_CLASS" value="com.alex.map.HistoryActivity" />
+      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
       <option name="PREFERRED_AVD" value="" />
@@ -337,6 +659,8 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
     </configuration>
     <list size="1">
@@ -348,43 +672,102 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="a408fd02-0902-4628-a3fa-8aa0d11ae8cc" name="Default" comment="" />
       <created>1386969297115</created>
       <updated>1386969297115</updated>
     </task>
+    <task id="LOCAL-00001" summary="create map.xml and MapActivity, rewrite MainActivity">
+      <created>1386978033323</created>
+      <updated>1386978033323</updated>
+    </task>
+    <task id="LOCAL-00002" summary="iml">
+      <created>1386979339374</created>
+      <updated>1386979339374</updated>
+    </task>
+    <task id="LOCAL-00003" summary="В ресурсы проекта добавлено изображение маркера. В main.xml изменил размер шрифта у TextView. Добавил класс MapActivity, запускающий карту. Добавил пару методов в класс MainActivity.">
+      <created>1387235598490</created>
+      <updated>1387235598490</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Обновил main.xml(переименовал переменные). Создал класс DialogToOrder, который отвечает за всплывающий диалог подтверждения заказа. Создал DialogTime, если получиться реализовать выбор времени как мы хотим(число:час:минуты), то он понадобиться полюбому. Немного изменил MainActivity(переименовал переменные). В CostCalculating заполнение нулевой диагонали сделал через цикл.">
+      <created>1387369482253</created>
+      <updated>1387369482253</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Добавлен класс TimeDialog, time_dialog.xml and more... Не забывайте в манифесте прописать новый activity! Свой не заливаю, сами должны догадываться почему.">
+      <created>1387410271506</created>
+      <updated>1387410271506</updated>
+    </task>
+    <task id="LOCAL-00006" summary="В текствые поля xml файлов вставил ссылки на значения из string.xml">
+      <created>1387415436167</created>
+      <updated>1387415436167</updated>
+    </task>
+    <task id="LOCAL-00007" summary="В ресурсы проекта добавлено изображение маркера. В main.xml изменил размер шрифта у TextView. Добавил карту.">
+      <created>1387933117928</created>
+      <updated>1387933117928</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ОБЯЗАТЕЛЬНО! В AndroidManifest измените API ключ на свой!!&#10;Добавил кнопку в Action bar на экране истории, немного переделал всё до чего дотянулся.&#10;">
+      <created>1389025088835</created>
+      <updated>1389025088835</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update">
+      <created>1389027707765</created>
+      <updated>1389027707765</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="960" height="1040" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32127956" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2433936" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21140473" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21140473" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2494432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15250966" sideWeight="0.6787205" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2433936" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15701416" sideWeight="0.67315716" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15701416" sideWeight="0.67315716" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3071581" sideWeight="0.6729911" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32684284" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -429,7 +812,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -443,21 +826,140 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="create map.xml and MapActivity, rewrite MainActivity" />
+    <MESSAGE value="iml" />
+    <MESSAGE value="В ресурсы проекта добавлено изображение маркера. В main.xml изменил размер шрифта у TextView. Добавил класс MapActivity, запускающий карту. Добавил пару методов в класс MainActivity." />
+    <MESSAGE value="Обновил main.xml(переименовал переменные). Создал класс DialogToOrder, который отвечает за всплывающий диалог подтверждения заказа. Создал DialogTime, если получиться реализовать выбор времени как мы хотим(число:час:минуты), то он понадобиться полюбому. Немного изменил MainActivity(переименовал переменные). В CostCalculating заполнение нулевой диагонали сделал через цикл." />
+    <MESSAGE value="Добавлен класс TimeDialog, time_dialog.xml and more... Не забывайте в манифесте прописать новый activity! Свой не заливаю, сами должны догадываться почему." />
+    <MESSAGE value="В текствые поля xml файлов вставил ссылки на значения из string.xml" />
+    <MESSAGE value="В ресурсы проекта добавлено изображение маркера. В main.xml изменил размер шрифта у TextView. Добавил карту." />
+    <MESSAGE value="ОБЯЗАТЕЛЬНО! В AndroidManifest измените API ключ на свой!!&#10;Добавил кнопку в Action bar на экране истории, немного переделал всё до чего дотянулся.&#10;" />
+    <MESSAGE value="Исправил" />
+    <MESSAGE value="update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GoogleMapV2.iml">
+    <entry file="file://$PROJECT_DIR$/src/ru/shem/services/CostCalculating.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="37" selection-start="785" selection-end="785" vertical-scroll-proportion="0.41705608">
+        <state line="73" column="60" selection-start="2445" selection-end="2445" vertical-scroll-proportion="0.62586606">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/Booking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="28" selection-start="3605" selection-end="3605" vertical-scroll-proportion="2.7299771">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="40" selection-start="178" selection-end="200" vertical-scroll-proportion="-2.72">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/menu/action_bar.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="7" selection-start="279" selection-end="279" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/history.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="40" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/android/support/v4/app/FragmentActivity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="16" selection-start="3997" selection-end="3997" vertical-scroll-proportion="0.35103926" />
+      </provider>
+    </entry>
+    <entry file="file://D:/Android/sdk/sources/android-14/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#557579#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/order.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="34" selection-start="1935" selection-end="1935" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/shem/services/Variables.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="32" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/OrderActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="4" selection-start="1492" selection-end="1887" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/HistoryBookings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="19" selection-start="2944" selection-end="2944" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.569/ShowInfoDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="42" selection-start="0" selection-end="2063" vertical-scroll-proportion="0.69186044" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/InfoDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="11" selection-start="759" selection-end="759" vertical-scroll-proportion="-3.24">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="38" selection-start="1761" selection-end="1761" vertical-scroll-proportion="0.7883472">
+        <state line="34" column="162" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/HistoryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="2" selection-start="2338" selection-end="2338" vertical-scroll-proportion="-38.96">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/alex/map/TimeDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="662" selection-end="662" vertical-scroll-proportion="-3.812357">
           <folding />
         </state>
       </provider>
