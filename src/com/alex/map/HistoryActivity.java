@@ -79,7 +79,7 @@ public class HistoryActivity extends FragmentActivity implements View.OnClickLis
             Booking booking = var.getHistoryBookings().getBooking(position); // Получаем кликнутый заказ
             Log.d(LOG, "onItemClick() booking.toString(): " + booking.toString());
 
-            new ShowInfoDialog(booking).show(getSupportFragmentManager(), null); // Выводим информацию о нем
+            new InfoDialog(booking).show(getSupportFragmentManager(), null); // Выводим информацию о нем
 
         } catch (Exception e) {
             Log.d(LOG,"!!!!! onItemClick() catch error: " + e.toString());
