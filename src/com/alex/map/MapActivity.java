@@ -67,7 +67,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
     }
 
     /**
-     * Метод отправляет данные MainActivity
+     * Метод отправляет данные OrderActivity
      *
      * @param marker
      * @return

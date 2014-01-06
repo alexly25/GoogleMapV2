@@ -67,7 +67,7 @@ public class CostCalculating extends IntentService {
         cost = ((range * present) + 50) * dayOrNight; // какая ни какая формула расчёта, потом поменяем, если что.
 
         /**
-         * Всё что ниже, это возврат стоимости в MainActivity .
+         * Всё что ниже, это возврат стоимости в OrderActivity .
          */
         Intent intentResponse = new Intent();
         intentResponse.setAction(ACTION_OF_MY_SERVICE);
