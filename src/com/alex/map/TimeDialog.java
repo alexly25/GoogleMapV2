@@ -9,7 +9,6 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.NumberPicker;
 import ru.shem.services.Variables;
 
@@ -118,7 +117,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
                     selectedDate,
                     selectedHour,
                     selectedMinute + ADD_MINUTE));
-            ((MainActivity)getActivity()).resetViews();
+            ((OrderActivity)getActivity()).resetViews();
 
             if ((selectedHour <= 6) || (selectedHour >= 23)) { // если ночь
                 var.setDayOrNight(2);
