@@ -14,5 +14,5 @@
     <string name="toast_booked">Заказ сделан</string>
     <string name="toast_booking_is_empty">Не верно оформлен заказ</string>
     <string name="toast_booking_error">Ошибка ввода данных.(чита лог)</string>
-
+    <string name="make_booking">Заказать</string>
 </resources>

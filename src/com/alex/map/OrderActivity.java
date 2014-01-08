@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import ru.shem.services.CostCalculating;
@@ -34,10 +36,10 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
      * false - для поля tvTo
      */
 
-    private TextView tvFrom;
-    private TextView tvTo;
+    private EditText etFrom;
+    private EditText etTo;
     private TextView tvCost;
-    private Button btnTime;
+    private EditText etTime;
     private Button btnToOrder;
 
     @Override
@@ -73,7 +75,32 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         registerReceiver(broadcastReceiver, intentFilter);
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) { // создание меню для создания заказа Furs
+        getMenuInflater().inflate(R.menu.make_booking_item, menu);
+        return true;
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.make_booking_item:
+                Log.d(LOG, "onClick() Pick to order");
+
+
+                newBooking.setStatus(statusActual);
+
+                if (newBooking.isEmpty() // Если не коректные поля переменных заказа
+                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
+
+                    Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG).show();
+
+                } else if (var.getHistoryBookings().addBooking(newBooking)) { // Если заказ успешно сохранился
+                    finish();
+                }
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -103,9 +130,9 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         Log.d(LOG, "resetViews()");
 
-        tvFrom.setText(newBooking.getBoathouseFrom());
-        tvTo.setText(newBooking.getBoathouseTo());
-        btnTime.setText(newBooking.getTime());
+        etFrom.setText(newBooking.getBoathouseFrom());
+        etTo.setText(newBooking.getBoathouseTo());
+        etTime.setText(newBooking.getTime());
         tvCost.setText(newBooking.getCostToString());
     }
 
@@ -116,17 +143,20 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         // Находим остольные элименты
 
-        tvFrom = (TextView) findViewById(R.id.tvFrom);
-        tvFrom.setOnClickListener(this);
+        etFrom = (EditText) findViewById(R.id.etFrom);
+        etFrom.setFocusable(false);
+        etFrom.setOnClickListener(this);
 
-        tvTo = (TextView) findViewById(R.id.tvTo);
-        tvTo.setOnClickListener(this);
+        etTo = (EditText) findViewById(R.id.etTo);
+        etTo.setFocusable(false);
+        etTo.setOnClickListener(this);
 
-        btnTime = (Button) findViewById(R.id.btnTime);
-        btnTime.setOnClickListener(this);
+        etTime = (EditText) findViewById(R.id.etTime);
+        etTime.setFocusable(false);
+        etTime.setOnClickListener(this);
 
-        btnToOrder = (Button) findViewById(R.id.btnToOrder);
-        btnToOrder.setOnClickListener(this);
+        //btnToOrder = (Button) findViewById(R.id.btnToOrder);
+      //  btnToOrder.setOnClickListener(this);
 
         tvCost = (TextView) findViewById(R.id.tvCost);
         tvCost.setOnClickListener(this);
@@ -135,21 +165,21 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) { // Метод сохраняет состояния объектов при повороте экрана и при не хватке памяти
         super.onSaveInstanceState(outState);
-        outState.putString("from", tvFrom.getText().toString());
-        outState.putString("to", tvTo.getText().toString());
-        outState.putString("time", btnTime.getText().toString());
+        outState.putString("from", etFrom.getText().toString());
+        outState.putString("to", etTo.getText().toString());
+        outState.putString("time", etTime.getText().toString());
         outState.putString("cost", tvCost.getText().toString());
-        outState.putBoolean("btnToOrder", btnToOrder.isEnabled());
+      //  outState.putBoolean("btnToOrder", btnToOrder.isEnabled());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) { // метод загружает данные и метода onSaveInstanceState(..)
         super.onRestoreInstanceState(savedInstanceState);
-        tvFrom.setText(savedInstanceState.getString("from"));
-        tvTo.setText(savedInstanceState.getString("to"));
-        btnTime.setText(savedInstanceState.getString("time"));
+        etFrom.setText(savedInstanceState.getString("from"));
+        etTo.setText(savedInstanceState.getString("to"));
+        etTime.setText(savedInstanceState.getString("time"));
         tvCost.setText(savedInstanceState.getString("cost"));
-        btnToOrder.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
+       // btnToOrder.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
     }
 
     @Override
@@ -160,7 +190,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.tvFrom: // Вызываем карту для выбора пункта отправки
+            case R.id.etFrom: // Вызываем карту для выбора пункта отправки
 
                 Log.d(LOG, "Select from");
 
@@ -168,7 +198,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.tvTo: // Вызываем карту для выбора пункта прибытия
+            case R.id.etTo: // Вызываем карту для выбора пункта прибытия
 
                 Log.d(LOG, "Select to");
 
@@ -176,13 +206,13 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.btnTime: // Вызываем диалоговое окно выбора времени отправки
+            case R.id.etTime: // Вызываем диалоговое окно выбора времени отправки
 
                 Log.d(LOG, "Pick time");
 
                 new TimeDialog(newBooking).show(getSupportFragmentManager(), null);
                 break;
-            case R.id.btnToOrder: // Сохраняем данные заказа
+          /*  case R.id.btnToOrder: //Сохраняем данные заказа
 
                 Log.d(LOG, "onClick() Pick to order");
 
@@ -196,7 +226,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
                 } else if (var.getHistoryBookings().addBooking(newBooking)) { // Если заказ успешно сохранился
                     finish();
                 }
-                break;
+                break;  */
         }
 
     }
@@ -219,11 +249,11 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
             Log.d(LOG, "onActivityResult() " + nameBoathouse);
 
             if (var.isFromChose()) {
-                tvFrom.setText(nameBoathouse);
+                etFrom.setText(nameBoathouse);
                 newBooking.setBoathouseFrom(nameBoathouse);
                 var.setFromId(Integer.valueOf(data.getStringExtra("id")));
             } else {
-                tvTo.setText(nameBoathouse);
+                etTo.setText(nameBoathouse);
                 newBooking.setBoathouseTo(nameBoathouse);
                 var.setToId(Integer.valueOf(data.getStringExtra("id")));
             }
@@ -247,13 +277,13 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
                 startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", var.getFromId()).putExtra("j", var.getToId()));
 
-                btnToOrder.setEnabled(true);
+               // btnToOrder.setEnabled(true);
 
             } else {
 
                 tvCost.setText("Вы выбрали одинаковые станции!");
 
-                btnToOrder.setEnabled(false);
+             //   btnToOrder.setEnabled(false);
             }
 
         } else {
