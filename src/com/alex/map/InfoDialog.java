@@ -42,8 +42,8 @@ public class InfoDialog extends DialogFragment implements OnClickListener {
     public String getInfo() {
         StringBuilder sb = new StringBuilder();
         Date date = booking.getDate();
-        sb.append("Место отправки: ").append(booking.getBoathouseFrom()).append("\n")
-                .append("Место прибытия: ").append(booking.getBoathouseTo()).append("\n")
+        sb.append("Место отправки: ")/*.append(booking.getBoathouseFrom()).append("\n")
+                .append("Место прибытия: ").append(booking.getBoathouseTo()).append("\n")*/
                 .append("Дата отравки: ").append(date.getDate())
                 .append(" в ").append(date.getHours()).append(":")
                 .append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes() + "\n")

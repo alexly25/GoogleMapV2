@@ -22,7 +22,7 @@ import java.util.Date;
  */
 public class OrderActivity extends FragmentActivity implements View.OnClickListener {
 
-    private static final String LOG = "logMainActivity";
+    private static final String LOG = "mylogOrderActivity";
     private static final String statusPause = "pause";
     private static final String statusActual = "actual";
 
@@ -30,17 +30,11 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     private Variables var = Variables.getInstance();
     private Booking newBooking;
 
-    /**
-     * Переменная определяет для какого поля был вызван activity
-     * true - для поля tvFrom
-     * false - для поля tvTo
-     */
-
     private EditText etFrom;
     private EditText etTo;
     private TextView tvCost;
     private EditText etTime;
-    private Button btnToOrder;
+    private MenuItem miAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,96 +46,14 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         init();
 
         // Востанавливаем состояние view компонентов перед выполнением Activity
-        newBooking = var.getHistoryBookings().getBookingPause();
+        newBooking = var.getNewBooking();
         resetViews();
     }
 
-    @Override
-    protected void onResume() {
-        Log.d(LOG, "onResume()");
-        super.onResume();
-
-        Log.d(LOG, ", newBooking.getDate().getTime()" + newBooking.getDate().toGMTString()
-                + " < new Date().getTime()" + new Date().toGMTString()
-                + "=" + (newBooking.getDate().getTime() < new Date().getTime()));
-
-        var.getHistoryBookings().checkStatus();
-
-        // Регистрируем широковещательный канал
-        broadcastReceiver = new CostCalculationBroadcastReceiver();
-
-        IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
-        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(broadcastReceiver, intentFilter);
-
-    }
-    public boolean onCreateOptionsMenu(Menu menu) { // создание меню для создания заказа Furs
-        getMenuInflater().inflate(R.menu.make_booking_item, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.make_booking_item:
-                Log.d(LOG, "onClick() Pick to order");
-
-
-                newBooking.setStatus(statusActual);
-
-                if (newBooking.isEmpty() // Если не коректные поля переменных заказа
-                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
-
-                    Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG).show();
-
-                } else if (var.getHistoryBookings().addBooking(newBooking)) { // Если заказ успешно сохранился
-                    finish();
-                }
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        Log.d(LOG, "onPause()");
-
-        if (broadcastReceiver != null) {
-            unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(LOG, "onDestroy()");
-
-        // Сохранем состояние view компонентов
-        newBooking.setStatus(statusPause);
-        var.getHistoryBookings().addBooking(newBooking);
-        Log.d(LOG, "onDestroy() historyBookings.addBooking(newBooking) newBooking: " + newBooking.toString());
-    }
-
     /**
-     * Метод перезаписывает значения View элиментов на экране заказа
-     */
-    protected void resetViews() {
-
-        Log.d(LOG, "resetViews()");
-
-        etFrom.setText(newBooking.getBoathouseFrom());
-        etTo.setText(newBooking.getBoathouseTo());
-        etTime.setText(newBooking.getTime());
-        tvCost.setText(newBooking.getCostToString());
-    }
-
-    /**
-     * Находим View коммпоненты
+     * Метод инициализирует View коммпоненты
      */
     private void init() {
-
-        // Находим остольные элименты
 
         etFrom = (EditText) findViewById(R.id.etFrom);
         etFrom.setFocusable(false);
@@ -155,31 +67,107 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         etTime.setFocusable(false);
         etTime.setOnClickListener(this);
 
-        //btnToOrder = (Button) findViewById(R.id.btnToOrder);
-      //  btnToOrder.setOnClickListener(this);
+        miAdd = (MenuItem) findViewById(R.id.make_booking_item);
 
         tvCost = (TextView) findViewById(R.id.tvCost);
         tvCost.setOnClickListener(this);
     }
 
     @Override
+    protected void onResume() {
+        Log.d(LOG, "onResume()");
+        super.onResume();
+
+        // Регистрируем широковещательный канал
+        broadcastReceiver = new CostCalculationBroadcastReceiver();
+
+        IntentFilter intentFilter = new IntentFilter(CostCalculating.ACTION_OF_MY_SERVICE);
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(broadcastReceiver, intentFilter);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { // создание меню для создания заказа Furs
+        getMenuInflater().inflate(R.menu.make_booking_item, menu);
+        return true;
+    }
+
+    /**
+     * Метод обрабатывает нажатие кнопки "Заказать"
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.make_booking_item){
+
+                newBooking.setStatus(statusActual);
+
+                if (newBooking.isEmpty() // Если не коректные поля заказа
+                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
+
+                    Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG).show();
+
+                } else if (var.getHistoryBookings().addBooking(newBooking)) { // Если заказ успешно сохранился
+                    finish();
+                }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d(LOG, "onPause()");
+
+        if (broadcastReceiver != null) {
+            unregisterReceiver(broadcastReceiver); // уначтажаем широковеательный канал при закрытии приложения
+        }
+    }
+
+    /**
+     * Метод перезаписывает значения View элиментов на экране заказа
+     */
+    protected void resetViews() {
+
+        Log.d(LOG, "resetViews()");
+
+        if (newBooking.getFromLocation() != null) etFrom.setText(newBooking.getFromLocation().getName());
+        if (newBooking.getToLocation() != null) etTo.setText(newBooking.getToLocation().getName());
+        if (newBooking.getDate() != null) etTime.setText(newBooking.getTime());
+        if (newBooking.getCost() != -1) tvCost.setText(newBooking.getCostToString());
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) { // Метод сохраняет состояния объектов при повороте экрана и при не хватке памяти
+
+        Log.d(LOG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
+
         outState.putString("from", etFrom.getText().toString());
         outState.putString("to", etTo.getText().toString());
         outState.putString("time", etTime.getText().toString());
         outState.putString("cost", tvCost.getText().toString());
-      //  outState.putBoolean("btnToOrder", btnToOrder.isEnabled());
+
+        // Если не каментить, то ошибка вылетает при открытие карты для выбора куда/откуда
+        //outState.putBoolean("btnToOrder", miAdd.isEnabled());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) { // метод загружает данные и метода onSaveInstanceState(..)
+
+        Log.d(LOG, "onRestoreInstanceState()");
         super.onRestoreInstanceState(savedInstanceState);
+
         etFrom.setText(savedInstanceState.getString("from"));
         etTo.setText(savedInstanceState.getString("to"));
         etTime.setText(savedInstanceState.getString("time"));
         tvCost.setText(savedInstanceState.getString("cost"));
-       // btnToOrder.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
+        //miAdd.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
     }
 
     @Override
@@ -212,23 +200,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
                 new TimeDialog(newBooking).show(getSupportFragmentManager(), null);
                 break;
-          /*  case R.id.btnToOrder: //Сохраняем данные заказа
-
-                Log.d(LOG, "onClick() Pick to order");
-
-                newBooking.setStatus(statusActual);
-
-                if (newBooking.isEmpty() // Если не коректные поля переменных заказа
-                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
-
-                    Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG).show();
-
-                } else if (var.getHistoryBookings().addBooking(newBooking)) { // Если заказ успешно сохранился
-                    finish();
-                }
-                break;  */
         }
-
     }
 
     /**
@@ -242,19 +214,21 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Log.d(LOG, "onActivityResult()");
+
         if (data != null) {
 
-            String nameBoathouse = data.getStringExtra("nameBoathouse");
+            Location location = (Location) data.getSerializableExtra("location");
+            String nameBoathouse = location.getName();
 
-            Log.d(LOG, "onActivityResult() " + nameBoathouse);
+            Log.d(LOG, "onActivityResult() location.getName() = " + nameBoathouse);
 
             if (var.isFromChose()) {
                 etFrom.setText(nameBoathouse);
-                newBooking.setBoathouseFrom(nameBoathouse);
+                newBooking.getFromLocation().setName(nameBoathouse);
                 var.setFromId(Integer.valueOf(data.getStringExtra("id")));
             } else {
                 etTo.setText(nameBoathouse);
-                newBooking.setBoathouseTo(nameBoathouse);
+                newBooking.getToLocation().setName(nameBoathouse);
                 var.setToId(Integer.valueOf(data.getStringExtra("id")));
             }
 
@@ -263,10 +237,11 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     }
 
     /**
-     * Расчет стоимости
+     * Метод расчитывает стоимость, если поля "Откуда" и "Куда" введенны корректно
      */
     private void calculation() {
-        Log.d(LOG, "toId: " + var.getToId() + ", fromId: " + var.getFromId());
+
+        Log.d(LOG, "calculation()");
 
         if (var.getToId() != null && var.getFromId() != null) {
 
@@ -277,19 +252,18 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
                 startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", var.getFromId()).putExtra("j", var.getToId()));
 
-               // btnToOrder.setEnabled(true);
+                miAdd.setEnabled(true);
 
             } else {
 
                 tvCost.setText("Вы выбрали одинаковые станции!");
 
-             //   btnToOrder.setEnabled(false);
+                miAdd.setEnabled(false);
             }
 
-        } else {
-            if (btnToOrder.isEnabled()) {
-                btnToOrder.setEnabled(false);
-            }
+        } else if (miAdd.isEnabled()) {
+            miAdd.setEnabled(false);
+
         }
     }
 

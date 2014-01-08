@@ -2,6 +2,7 @@ package com.alex.map;
 
 import com.google.android.gms.internal.ek;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,46 +14,56 @@ import java.util.GregorianCalendar;
  * Time: 23:47
  * To change this template use File | Settings | File Templates.
  */
-public class Booking {
+public class Booking implements Serializable {
 
     private static final int ADD_MINUTE = 5;
     private static final String statusActual = "actual";
+    private static final long serialVersionUID = -1096217523172222472L;
 
-    private String boathouseFrom;
-    private String boathouseTo;
+    private Location fromLocation;
+    private Location toLocation;
     private Date date;
     private int cost;
     private String status;
 
-    public Booking() {
-        this.boathouseFrom = "Откуда";
-        this.boathouseTo = "Куда";
-        this.date = dateAdded();
-        this.status = "";
-    }
 
-    public Booking(String boathouseFrom, String boathouseTo, Date date, int cost, String status) {
-        this.boathouseFrom = boathouseFrom;
-        this.boathouseTo = boathouseTo;
+    public Booking(Location fromLocation, Location toLocation, Date date, int cost, String status) {
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
         this.date = date;
         this.cost = cost;
         this.status = status;
     }
-
-    public String getInfo(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Статус: ").append((getStatus().equals(statusActual)) ? "Актуален" : "Не актуален")
-                .append(", Из: ").append(boathouseFrom)
-                .append(", В: ").append(boathouseTo)
-                .append(", Дата: ").append(date.getDate()).append(" ").append(date.getHours())
-                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
-        return sb.toString();
+    public int getCost() {
+        return cost;
     }
 
     public String getCostToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Оплата: ").append(cost);
         return sb.toString();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Location getFromLocation() {
+        return fromLocation;
+    }
+
+    public String getInfo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Статус: ").append((getStatus().equals(statusActual)) ? "Актуален" : "Не актуален")
+                .append(", Из: ").append(fromLocation.getName())
+                .append(", В: ").append(toLocation.getName())
+                .append(", Дата: ").append(date.getDate()).append(" ").append(date.getHours())
+                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
+        return sb.toString();
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getTime() {
@@ -63,59 +74,43 @@ public class Booking {
         return sb.toString();
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Из: ").append(boathouseFrom)
-                .append(", в: ").append(boathouseTo)
-                .append(", дата: ").append(date.getDate()).append(" ").append(date.getHours())
-                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes())
-                .append(", цена: ").append(cost)
-                .append(", статус: ").append(status);
-        return sb.toString();
+    public Location getToLocation() {
+        return toLocation;
     }
 
     public boolean isEmpty() {
-        return boathouseFrom.equals("") && boathouseTo.equals("") && date == null && cost == 0;
-    }
-
-    public void setBoathouseFrom(String boathouseFrom) {
-        this.boathouseFrom = boathouseFrom;
-    }
-
-    public void setBoathouseTo(String boathouseTo) {
-        this.boathouseTo = boathouseTo;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+        return fromLocation == null || toLocation == null || date == null || cost == -1 || status == null;
     }
 
     public void setCost(int cost) {
         this.cost = cost;
     }
 
-    public String getBoathouseTo() {
-        return boathouseTo;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getBoathouseFrom() {
-        return boathouseFrom;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public String getStatus() {
-        return status;
+    public void setFromLocation(Location fromLocation) {
+        this.fromLocation = fromLocation;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setToLocation(Location toLocation) {
+        this.toLocation = toLocation;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Из: ").append(fromLocation.getName())
+                .append(", в: ").append(toLocation.getName())
+                .append(", дата: ").append(date.getDate()).append(" ").append(date.getHours())
+                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes())
+                .append(", цена: ").append(cost)
+                .append(", статус: ").append(status);
+        return sb.toString();
     }
 
     private Date dateAdded() {

@@ -1,16 +1,17 @@
 package com.alex.map;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
+import ru.shem.services.Variables;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,16 +22,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
-    private static final String LOG = "logMapActivity";
+    private static final String LOG = "mylogMapActivity";
     private GoogleMap map;
+    private ArrayList<Location> locationArrayList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d(LOG, "onCreate()");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
 
         LatLng defaultCoordinatesMap = new LatLng(53.217482, 50.112419);
+        locationArrayList = Variables.getInstance().getLocationArrayList(); // Получаем маркеры
 
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)) // Получаем карту
                 .getMap();
@@ -38,32 +44,27 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
         map.setOnMarkerClickListener(this);
         map.setOnInfoWindowClickListener(this);
 
-        // Добавление маркеров на левый берег волги
+        Log.d(LOG,"Добавление маркеров станций на карту");
 
-        addBoathouse("8-я просека", 53.261874, 50.181009);//id "m0" - все id прописываются сами, число id - номер добавления маркера на карту
-        addBoathouse("3-я просека", 53.241320, 50.167147);//id "m1"
-        addBoathouse("Осипенко", 53.214176, 50.126560);//id "m2"
-        addBoathouse("Вилоновский сп.", 53.200887, 50.096519);//id "m3"
-        addBoathouse("Речной вокзал", 53.185758, 50.076960);//id "m4"
+        // Добавление маркеров станций на карту
+        int size = locationArrayList.size();
+        for (int i = 0; i < size; i++) {
+            addBoathouse(locationArrayList.get(i));
+        }
 
-        // Добавление маркеров на правый берег волги
-
-        addBoathouse("Ближний пляж", 53.232343, 50.115069);//id "m5"
-        addBoathouse("Рождественно", 53.226423, 50.064595);//id "m6"
+        Log.d(LOG,"Добавление маркеров станций на карту закончено");
     }
 
     /**
      * Метод добавляет маркер на карту
      *
-     * @param name      Имя маркера
-     * @param latitude  Широта
-     * @param longitude Долгота
+     * @param location Имя и координаты мркера
      */
-    private void addBoathouse(String name, double latitude, double longitude) {
+    private void addBoathouse(Location location) {
         map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-                .position(new LatLng(latitude, longitude))
-                .title(name));
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .title(location.getName()));
     }
 
     /**
@@ -87,10 +88,19 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
     @Override
     public void onInfoWindowClick(Marker marker) {
         Log.d(LOG,"onInfoWindowClick()");
-        Intent intent = new Intent();
-        intent.putExtra("nameBoathouse", marker.getTitle());
-        intent.putExtra("id", marker.getId().substring(1));
-        setResult(RESULT_OK, intent);
-        finish();
+
+        Location location;
+
+        // Если координата найдена
+        if((location = Variables.getInstance().getLocation(marker.getTitle())) != null){
+            Intent intent = new Intent();
+            intent.putExtra("location", location);
+            intent.putExtra("id", marker.getId().substring(1));
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            Log.d(LOG,"onInfoWindowClick(): !!!!!location is not");
+        }
+
     }
 }

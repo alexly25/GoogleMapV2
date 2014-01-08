@@ -5,11 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.Browser;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import ru.shem.services.Variables;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +23,7 @@ import java.util.HashMap;
  */
 public class HistoryBookings {
 
-    private static final String LOG = "logHistoryBooking";
+    private static final String LOG = "mylogHistoryBooking";
     private static final String statusPause = "pause";
     private static final String statusActual = "actual";
     private static final String statusNoActual = "no_actual";
@@ -45,6 +44,31 @@ public class HistoryBookings {
         bookingHashMap = new HashMap<Integer, Booking>();
 
         lvHistory.setAdapter(arrayAdapter);
+    }
+
+    /**
+     * Метод эмулирующий добавление заказа. НЕ УДАЛЯТЬ!!!
+     * @return
+     */
+    public int addBookingForTests() {
+
+        Booking booking = new Booking(
+                new Location("8-я просека", 53.261874, 50.181009),
+                new Location("Ближний пляж", 53.232343, 50.115069),
+                new Date(),
+                2111,
+                statusActual);
+
+        if (addingBooking(booking)) {
+            if (booking.getStatus().equals(statusActual)) {
+                outBookings();
+                Log.d(LOG, "addBooking() status actual");
+            } else if (booking.getStatus().equals(statusPause)) {
+                Log.d(LOG, "addBooking() status pause");
+            }
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -86,6 +110,7 @@ public class HistoryBookings {
 
     /**
      * Метод возвращает объект класса Booking который находиться в списке на позиции position.
+     *
      * @param position Номер запрашиваемого объекта
      * @return Запрашиваемый объект
      */
@@ -103,7 +128,7 @@ public class HistoryBookings {
      * @return Возвращает объект класса Booking хранящий состояние перед закрытием программы.
      */
     public Booking getBookingPause() {
-        Booking booking = new Booking();
+        Booking booking = null;
 
         Log.d(LOG, "getBookingPause()");
 
@@ -122,7 +147,7 @@ public class HistoryBookings {
 
             if (c.moveToFirst()) {
 
-                setBookingValues(c, booking);
+                booking = getBooking(c);
                 Log.d(LOG, "getBookingPause() booking.toString() " + booking.toString());
 
                 db.execSQL("DELETE FROM " + tableName + " WHERE status = 'pause'");
@@ -196,14 +221,14 @@ public class HistoryBookings {
 
                 do {
                     i++;
-                    Booking booking = new Booking();
-                    setBookingValues(c, booking);
-                    Log.d(LOG, "outBookings() add into list: " + booking.toString());
+                    Booking booking = getBooking(c);
+                    Log.d(LOG, "outBookings() Booking booking = getBooking(c);");
+                    Log.d(LOG, "outBookings() add into list: " + booking.getFromLocation().getName());
 
                     alHistory.add(booking.getInfo());
                     arrayAdapter.notifyDataSetChanged();
                     bookingHashMap.put(i, booking);
-                    Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size()+ " get("+i+"): "+bookingHashMap.get(0).toString());
+                    Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size() + " get(" + i + "): " + bookingHashMap.get(0).toString());
 
                     // переход на следующую строку
                     // а если следующей нет (текущая - последняя), то false - выходим из цикла
@@ -224,17 +249,21 @@ public class HistoryBookings {
     }
 
     /**
-     * Метод записывает значения с объекта типа Cursor, в объект типа Booking
+     * Метод считывает информацию о заказе с объекта Cursor и возвращает объект Booking
      *
-     * @param c       Переменная с которой происходит считывание
-     * @param booking Переменная в которую происходит запись
+     * @param c Переменная с которой происходит считывание
      */
-    private void setBookingValues(Cursor c, Booking booking) {
-        booking.setBoathouseFrom(c.getString(c.getColumnIndex("boathouseFrom")));
-        booking.setBoathouseTo(c.getString(c.getColumnIndex("boathouseTo")));
-        booking.setDate(new Date(Long.valueOf(c.getString(c.getColumnIndex("date")))));
-        booking.setCost(Integer.valueOf(c.getString(c.getColumnIndex("cost"))));
-        booking.setStatus(c.getString(c.getColumnIndex("status")));
+    private Booking getBooking(Cursor c) {
+
+        Log.d(LOG, "getBooking()");
+
+        return new Booking(
+                Variables.getInstance().getLocation(c.getString(c.getColumnIndex("boathouseFrom"))),
+                Variables.getInstance().getLocation(c.getString(c.getColumnIndex("boathouseTo"))),
+                new Date(Long.valueOf(c.getString(c.getColumnIndex("date")))),
+                Integer.valueOf(c.getString(c.getColumnIndex("cost"))),
+                c.getString(c.getColumnIndex("status")));
+
     }
 
     /**
@@ -253,18 +282,17 @@ public class HistoryBookings {
             return false;
         }
 
-        ContentValues cv = null;
         SQLiteDatabase db = null;
 
         try {
             // создаем объект для данных
-            cv = new ContentValues();
+            ContentValues cv = new ContentValues();
 
             // подключаемся к БД
             db = sqLite.getWritableDatabase();
 
-            cv.put("boathouseFrom", booking.getBoathouseFrom());
-            cv.put("boathouseTo", booking.getBoathouseTo());
+            cv.put("boathouseFrom", booking.getFromLocation().getName());
+            cv.put("boathouseTo", booking.getToLocation().getName());
             cv.put("date", booking.getDate().getTime());
             cv.put("cost", booking.getCost());
             cv.put("status", booking.getStatus());
@@ -284,6 +312,7 @@ public class HistoryBookings {
 
         } finally {
             db.close();
+
         }
         return isAdded;
 
