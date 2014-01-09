@@ -67,7 +67,7 @@ public class InfoFragment extends FragmentActivity  {
 
         Location fromLocation = booking.getFromLocation();
         Marker fromMarker = map.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
                 .position(new LatLng(fromLocation.getLatitude(), fromLocation.getLongitude()))
                 .title(fromLocation.getName())
                 .snippet("Отплываем: 15:00"));
@@ -75,7 +75,7 @@ public class InfoFragment extends FragmentActivity  {
 
         Location toLocation = booking.getToLocation();
         Marker toMarker = map.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
                 .position(new LatLng(toLocation.getLatitude(), toLocation.getLongitude()))
                 .title(toLocation.getName()).snippet("Прибытие: 15:30"));
     }

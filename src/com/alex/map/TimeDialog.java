@@ -124,6 +124,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
             } else { // если день
                 var.setDayOrNight(1);
             }
+            ((OrderActivity)getActivity()).doCalculation();
         }
     }
 

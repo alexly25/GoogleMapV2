@@ -34,7 +34,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     private EditText etTo;
     private TextView tvCost;
     private EditText etTime;
-    private MenuItem miAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,8 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         setContentView(R.layout.order);
 
         init();
+
+        getActionBar().hide();
 
         // Востанавливаем состояние view компонентов перед выполнением Activity
         newBooking = var.getNewBooking();
@@ -67,8 +68,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         etTime.setFocusable(false);
         etTime.setOnClickListener(this);
 
-        miAdd = (MenuItem) findViewById(R.id.make_booking_item);
-
         tvCost = (TextView) findViewById(R.id.tvCost);
         tvCost.setOnClickListener(this);
     }
@@ -77,6 +76,8 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     protected void onResume() {
         Log.d(LOG, "onResume()");
         super.onResume();
+
+        calculation();
 
         // Регистрируем широковещательный канал
         broadcastReceiver = new CostCalculationBroadcastReceiver();
@@ -136,10 +137,18 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         Log.d(LOG, "resetViews()");
 
-        if (newBooking.getFromLocation() != null) etFrom.setText(newBooking.getFromLocation().getName());
-        if (newBooking.getToLocation() != null) etTo.setText(newBooking.getToLocation().getName());
-        if (newBooking.getDate() != null) etTime.setText(newBooking.getTime());
-        if (newBooking.getCost() != -1) tvCost.setText(newBooking.getCostToString());
+        if (newBooking.getFromLocation() != null) {
+            etFrom.setText(newBooking.getFromLocation().getName());
+        }
+        if (newBooking.getToLocation() != null) {
+            etTo.setText(newBooking.getToLocation().getName());
+        }
+        if (newBooking.getDate() != null) {
+            etTime.setText(newBooking.getTime());
+        }
+        if (newBooking.getCost() != -1) {
+            tvCost.setText(newBooking.getCostToString());
+        }
     }
 
     @Override
@@ -152,9 +161,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         outState.putString("to", etTo.getText().toString());
         outState.putString("time", etTime.getText().toString());
         outState.putString("cost", tvCost.getText().toString());
-
-        // Если не каментить, то ошибка вылетает при открытие карты для выбора куда/откуда
-        //outState.putBoolean("btnToOrder", miAdd.isEnabled());
     }
 
     @Override
@@ -167,7 +173,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         etTo.setText(savedInstanceState.getString("to"));
         etTime.setText(savedInstanceState.getString("time"));
         tvCost.setText(savedInstanceState.getString("cost"));
-        //miAdd.setEnabled(savedInstanceState.getBoolean("btnToOrder"));
     }
 
     @Override
@@ -236,6 +241,10 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         }
     }
 
+    protected void doCalculation() {
+        calculation();
+    }
+
     /**
      * Метод расчитывает стоимость, если поля "Откуда" и "Куда" введенны корректно
      */
@@ -243,7 +252,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         Log.d(LOG, "calculation()");
 
-        if (var.getToId() != null && var.getFromId() != null) {
+        if ((var.getToId() != null) && (var.getFromId() != null)) {
             Log.d(LOG, "calculation() if1");
 
             if (var.getToId() != var.getFromId()) {
@@ -257,25 +266,23 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
                 Log.d(LOG, "calculation() start");
 
 
-
-                // не хочет работать!!!!----------------------------------------------------------------- ----------
-                // miAdd.setEnabled(true);
+                getActionBar().show();
 
             } else {
 
                 tvCost.setText("Вы выбрали одинаковые станции!");
 
-
-                // Эта тоже не хочет!!!---------------------- ------------------------------------------------------
-                //miAdd.setEnabled(false);
+                if(getActionBar().isShowing()) {
+                    getActionBar().hide();
+                }
             }
 
         } else {
             Log.d(LOG, "calculation() else");
 
-            // Эта тоже!!! надо разбираться с ними..----------------------------------------------------------------
-            //miAdd.setEnabled(false);
-
+            if(getActionBar().isShowing()) {
+                getActionBar().hide();
+            }
         }
     }
 

@@ -34,6 +34,9 @@ public class Booking implements Serializable {
         this.cost = cost;
         this.status = status;
     }
+
+    public Booking() { }
+
     public int getCost() {
         return cost;
     }
