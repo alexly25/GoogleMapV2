@@ -102,7 +102,7 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.make_booking_item){
-
+            Log.d(LOG, "onOptionsItemSelected() make_booking_item");
                 newBooking.setStatus(statusActual);
 
                 if (newBooking.isEmpty() // Если не коректные поля заказа
@@ -224,11 +224,11 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
             if (var.isFromChose()) {
                 etFrom.setText(nameBoathouse);
-                newBooking.getFromLocation().setName(nameBoathouse);
+                newBooking.setFromLocation(location);
                 var.setFromId(Integer.valueOf(data.getStringExtra("id")));
             } else {
                 etTo.setText(nameBoathouse);
-                newBooking.getToLocation().setName(nameBoathouse);
+                newBooking.setToLocation(location);
                 var.setToId(Integer.valueOf(data.getStringExtra("id")));
             }
 
@@ -244,25 +244,37 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Log.d(LOG, "calculation()");
 
         if (var.getToId() != null && var.getFromId() != null) {
+            Log.d(LOG, "calculation() if1");
 
             if (var.getToId() != var.getFromId()) {
+                Log.d(LOG, "calculation() if2");
 
                 // Создаём исходный поток в IntentService
                 Intent intentCostCalculating = new Intent(this, CostCalculating.class);
+                Log.d(LOG, "calculation() intent");
 
                 startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", var.getFromId()).putExtra("j", var.getToId()));
+                Log.d(LOG, "calculation() start");
 
-                miAdd.setEnabled(true);
+
+
+                // не хочет работать!!!!----------------------------------------------------------------- ----------
+                // miAdd.setEnabled(true);
 
             } else {
 
                 tvCost.setText("Вы выбрали одинаковые станции!");
 
-                miAdd.setEnabled(false);
+
+                // Эта тоже не хочет!!!---------------------- ------------------------------------------------------
+                //miAdd.setEnabled(false);
             }
 
-        } else if (miAdd.isEnabled()) {
-            miAdd.setEnabled(false);
+        } else {
+            Log.d(LOG, "calculation() else");
+
+            // Эта тоже!!! надо разбираться с ними..----------------------------------------------------------------
+            //miAdd.setEnabled(false);
 
         }
     }

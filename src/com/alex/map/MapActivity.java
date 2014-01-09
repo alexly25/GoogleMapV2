@@ -75,7 +75,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
      */
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Log.d(LOG, "onMarkerClick");
+        Log.d(LOG, "onMarkerClick()");
 
         if (!marker.isInfoWindowShown()) {
 
