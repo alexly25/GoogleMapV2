@@ -44,8 +44,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         init();
 
-        getActionBar().hide();
-
         // Востанавливаем состояние view компонентов перед выполнением Activity
         newBooking = var.getNewBooking();
         resetViews();
@@ -77,7 +75,9 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Log.d(LOG, "onResume()");
         super.onResume();
 
-        calculation();
+
+        // Зачем??
+        //calculation();
 
         // Регистрируем широковещательный канал
         broadcastReceiver = new CostCalculationBroadcastReceiver();
@@ -102,12 +102,14 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Log.d(LOG, "onOptionsItemSelected() make_booking_item");
+
         if(item.getItemId() == R.id.make_booking_item){
-            Log.d(LOG, "onOptionsItemSelected() make_booking_item");
+
                 newBooking.setStatus(statusActual);
 
                 if (newBooking.isEmpty() // Если не коректные поля заказа
-                        || newBooking.getDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
+                        || newBooking.getFromDate().getTime() < new Date().getTime()) { // Если заказывается в прошлом времени
 
                     Toast.makeText(getBaseContext(), R.string.toast_booking_error, Toast.LENGTH_LONG).show();
 
@@ -143,8 +145,8 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         if (newBooking.getToLocation() != null) {
             etTo.setText(newBooking.getToLocation().getName());
         }
-        if (newBooking.getDate() != null) {
-            etTime.setText(newBooking.getTime());
+        if (newBooking.getFromDate() != null) {
+            etTime.setText(newBooking.getFromTime());
         }
         if (newBooking.getCost() != -1) {
             tvCost.setText(newBooking.getCostToString());
@@ -185,23 +187,17 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.etFrom: // Вызываем карту для выбора пункта отправки
 
-                Log.d(LOG, "Select from");
-
                 var.setFromChose(true);
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.etTo: // Вызываем карту для выбора пункта прибытия
 
-                Log.d(LOG, "Select to");
-
                 var.setFromChose(false);
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.etTime: // Вызываем диалоговое окно выбора времени отправки
-
-                Log.d(LOG, "Pick time");
 
                 new TimeDialog(newBooking).show(getSupportFragmentManager(), null);
                 break;
@@ -224,8 +220,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
             Location location = (Location) data.getSerializableExtra("location");
             String nameBoathouse = location.getName();
-
-            Log.d(LOG, "onActivityResult() location.getName() = " + nameBoathouse);
 
             if (var.isFromChose()) {
                 etFrom.setText(nameBoathouse);
@@ -253,36 +247,20 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Log.d(LOG, "calculation()");
 
         if ((var.getToId() != null) && (var.getFromId() != null)) {
-            Log.d(LOG, "calculation() if1");
 
             if (var.getToId() != var.getFromId()) {
-                Log.d(LOG, "calculation() if2");
 
                 // Создаём исходный поток в IntentService
                 Intent intentCostCalculating = new Intent(this, CostCalculating.class);
-                Log.d(LOG, "calculation() intent");
 
                 startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", var.getFromId()).putExtra("j", var.getToId()));
-                Log.d(LOG, "calculation() start");
-
-
-                getActionBar().show();
 
             } else {
 
-                tvCost.setText("Вы выбрали одинаковые станции!");
+                Toast.makeText(getBaseContext(), "Вы выбрали одинаковые станции!", Toast.LENGTH_LONG).show();
 
-                if(getActionBar().isShowing()) {
-                    getActionBar().hide();
-                }
             }
 
-        } else {
-            Log.d(LOG, "calculation() else");
-
-            if(getActionBar().isShowing()) {
-                getActionBar().hide();
-            }
         }
     }
 

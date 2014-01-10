@@ -3,6 +3,7 @@ package com.alex.map;
 import com.google.android.gms.internal.ek;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,7 +17,6 @@ import java.util.GregorianCalendar;
  */
 public class Booking implements Serializable {
 
-    private static final int ADD_MINUTE = 5;
     private static final String statusActual = "actual";
     private static final long serialVersionUID = -1096217523172222472L;
 
@@ -26,7 +26,6 @@ public class Booking implements Serializable {
     private int cost;
     private String status;
 
-
     public Booking(Location fromLocation, Location toLocation, Date date, int cost, String status) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
@@ -35,7 +34,8 @@ public class Booking implements Serializable {
         this.status = status;
     }
 
-    public Booking() { }
+    /*  Зачем??
+    public Booking() { }*/
 
     public int getCost() {
         return cost;
@@ -47,34 +47,32 @@ public class Booking implements Serializable {
         return sb.toString();
     }
 
-    public Date getDate() {
+    public Date getFromDate() {
         return date;
+    }
+
+    public Date getToDate() {
+        return new Date(date.getTime() + 1800000); // Прибавляем 30 мин ко времени отплытия
     }
 
     public Location getFromLocation() {
         return fromLocation;
     }
 
-    public String getInfo(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Статус: ").append((getStatus().equals(statusActual)) ? "Актуален" : "Не актуален")
-                .append(", Из: ").append(fromLocation.getName())
-                .append(", В: ").append(toLocation.getName())
-                .append(", Дата: ").append(date.getDate()).append(" ").append(date.getHours())
-                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
-        return sb.toString();
-    }
-
     public String getStatus() {
         return status;
     }
 
-    public String getTime() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Отплываем  ").append(date.getDate())
-                .append(" в ").append(date.getHours())
-                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes());
-        return sb.toString();
+    public String getFromTime() {
+        return new SimpleDateFormat("'Отплытие:' d MMM 'в' HH:mm").format(date);
+    }
+
+    public String getToTime() {
+        return new SimpleDateFormat("'Время прибытия:' d MMM 'в' HH:mm").format(getToDate());
+    }
+
+    public String getTravelTime() {
+        return new SimpleDateFormat("'Время пути:' mm мин.").format(getToDate().getTime() - getFromDate().getTime());
     }
 
     public Location getToLocation() {
@@ -82,7 +80,13 @@ public class Booking implements Serializable {
     }
 
     public boolean isEmpty() {
+
+        if (fromLocation != null && toLocation != null && fromLocation.getName().equals(toLocation.getName())) {
+            return true;
+        }
+
         return fromLocation == null || toLocation == null || date == null || cost == -1 || status == null;
+
     }
 
     public void setCost(int cost) {
@@ -108,20 +112,10 @@ public class Booking implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Из: ").append(fromLocation.getName())
-                .append(", в: ").append(toLocation.getName())
-                .append(", дата: ").append(date.getDate()).append(" ").append(date.getHours())
-                .append(":").append((date.getMinutes() < 10) ? ("0" + date.getMinutes()) : date.getMinutes())
-                .append(", цена: ").append(cost)
-                .append(", статус: ").append(status);
+                .append(", В: ").append(toLocation.getName())
+                .append(", Дата: ").append(new SimpleDateFormat("d MMM HH:mm").format(date))
+                .append(", Цена: ").append(cost)
+                .append(", Статус: ").append(status);
         return sb.toString();
-    }
-
-    private Date dateAdded() {
-        Date d = new Date();
-        return new Date(d.getYear(),
-                d.getMonth(),
-                d.getDate(),
-                d.getHours(),
-                d.getMinutes() + ADD_MINUTE);
     }
 }

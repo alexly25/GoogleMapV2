@@ -31,7 +31,9 @@ public class HistoryActivity extends FragmentActivity implements AdapterView.OnI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.d(LOG, "onCreate()");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
 
@@ -87,9 +89,7 @@ public class HistoryActivity extends FragmentActivity implements AdapterView.OnI
         try {
 
             Booking booking = var.getHistoryBookings().getBooking(position); // Получаем кликнутый заказ
-            Log.d(LOG, "onItemClick() booking.toString(): " + booking.toString());
 
-            //new InfoDialog(booking).show(getSupportFragmentManager(), null); // Выводим информацию о нем
             Intent intent = new Intent(this, InfoFragment.class);
             intent.putExtra("booking", booking);
             startActivity(intent);

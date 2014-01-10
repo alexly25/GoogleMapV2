@@ -13,6 +13,10 @@
     <string name="time_dialog_xml_minute">Минуты</string>
     <string name="toast_booked">Заказ сделан</string>
     <string name="toast_booking_is_empty">Не верно оформлен заказ</string>
-    <string name="toast_booking_error">Ошибка ввода данных.(чита лог)</string>
+    <string name="toast_booking_error">Ошибка ввода данных</string>
     <string name="make_booking">Заказать</string>
+    <string name="information_activity">Информация о заказе</string>
+    <string name="history_activity">История заказов</string>
+    <string name="order_activity">Новый заказ</string>
+    <string name="map_activity">Выбор точки</string>
 </resources>

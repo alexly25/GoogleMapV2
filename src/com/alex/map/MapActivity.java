@@ -44,15 +44,11 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
         map.setOnMarkerClickListener(this);
         map.setOnInfoWindowClickListener(this);
 
-        Log.d(LOG,"Добавление маркеров станций на карту");
-
         // Добавление маркеров станций на карту
         int size = locationArrayList.size();
         for (int i = 0; i < size; i++) {
             addBoathouse(locationArrayList.get(i));
         }
-
-        Log.d(LOG,"Добавление маркеров станций на карту закончено");
     }
 
     /**
@@ -75,6 +71,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
      */
     @Override
     public boolean onMarkerClick(Marker marker) {
+
         Log.d(LOG, "onMarkerClick()");
 
         if (!marker.isInfoWindowShown()) {
@@ -87,6 +84,7 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+
         Log.d(LOG,"onInfoWindowClick()");
 
         Location location;
@@ -98,8 +96,6 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
             intent.putExtra("id", marker.getId().substring(1));
             setResult(RESULT_OK, intent);
             finish();
-        } else {
-            Log.d(LOG,"onInfoWindowClick(): !!!!!location is not");
         }
 
     }

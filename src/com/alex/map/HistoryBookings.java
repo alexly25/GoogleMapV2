@@ -225,7 +225,7 @@ public class HistoryBookings {
                     Log.d(LOG, "outBookings() Booking booking = getBooking(c);");
                     Log.d(LOG, "outBookings() add into list: " + booking.getFromLocation().getName());
 
-                    alHistory.add(booking.getInfo());
+                    alHistory.add(booking.toString());
                     arrayAdapter.notifyDataSetChanged();
                     bookingHashMap.put(i, booking);
                     Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size() + " get(" + i + "): " + bookingHashMap.get(0).toString());
@@ -293,7 +293,7 @@ public class HistoryBookings {
 
             cv.put("boathouseFrom", booking.getFromLocation().getName());
             cv.put("boathouseTo", booking.getToLocation().getName());
-            cv.put("date", booking.getDate().getTime());
+            cv.put("date", booking.getFromDate().getTime());
             cv.put("cost", booking.getCost());
             cv.put("status", booking.getStatus());
 
