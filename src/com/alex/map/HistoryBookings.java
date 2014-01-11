@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ru.shem.services.HistoryAdapter;
 import ru.shem.services.Variables;
 
 import java.util.ArrayList;

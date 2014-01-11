@@ -30,6 +30,11 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     private Variables var = Variables.getInstance();
     private Booking newBooking;
 
+    private Integer fromId = null;
+    private Integer toId = null;
+
+    private boolean isFromChoice;
+
     private EditText etFrom;
     private EditText etTo;
     private TextView tvCost;
@@ -163,6 +168,9 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         outState.putString("to", etTo.getText().toString());
         outState.putString("time", etTime.getText().toString());
         outState.putString("cost", tvCost.getText().toString());
+        outState.putBoolean("isFromChoice", isFromChoice);
+        if(fromId != null)outState.putInt("fromId", fromId);
+        if(toId != null)outState.putInt("toId", toId);
     }
 
     @Override
@@ -175,6 +183,9 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         etTo.setText(savedInstanceState.getString("to"));
         etTime.setText(savedInstanceState.getString("time"));
         tvCost.setText(savedInstanceState.getString("cost"));
+        isFromChoice = savedInstanceState.getBoolean("isFromChoice");
+        fromId = savedInstanceState.getInt("fromId");
+        toId = savedInstanceState.getInt("toId");
     }
 
     @Override
@@ -187,13 +198,13 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.etFrom: // Вызываем карту для выбора пункта отправки
 
-                var.setFromChose(true);
+                isFromChoice = true;
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.etTo: // Вызываем карту для выбора пункта прибытия
 
-                var.setFromChose(false);
+                isFromChoice = false;
                 intent = new Intent(this, MapActivity.class);
                 startActivityForResult(intent, 1);
                 break;
@@ -221,14 +232,14 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
             Location location = (Location) data.getSerializableExtra("location");
             String nameBoathouse = location.getName();
 
-            if (var.isFromChose()) {
+            if (isFromChoice) {
                 etFrom.setText(nameBoathouse);
                 newBooking.setFromLocation(location);
-                var.setFromId(Integer.valueOf(data.getStringExtra("id")));
+                fromId = Integer.valueOf(data.getStringExtra("id"));
             } else {
                 etTo.setText(nameBoathouse);
                 newBooking.setToLocation(location);
-                var.setToId(Integer.valueOf(data.getStringExtra("id")));
+                toId = Integer.valueOf(data.getStringExtra("id"));
             }
 
             calculation();
@@ -246,19 +257,16 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         Log.d(LOG, "calculation()");
 
-        if ((var.getToId() != null) && (var.getFromId() != null)) {
+        if ((toId != null) && (fromId != null)) {
 
-            if (var.getToId() != var.getFromId()) {
+            if (toId != fromId) {
 
                 // Создаём исходный поток в IntentService
                 Intent intentCostCalculating = new Intent(this, CostCalculating.class);
 
-                startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", var.getFromId()).putExtra("j", var.getToId()));
-
+                startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", fromId).putExtra("j", toId));
             } else {
-
                 Toast.makeText(getBaseContext(), "Вы выбрали одинаковые станции!", Toast.LENGTH_LONG).show();
-
             }
 
         }

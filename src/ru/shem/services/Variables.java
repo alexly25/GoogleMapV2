@@ -1,13 +1,10 @@
 package ru.shem.services;
 
-import android.util.Log;
 import com.alex.map.Booking;
 import com.alex.map.HistoryBookings;
 import com.alex.map.Location;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,15 +18,12 @@ public class Variables {
 
     private int dayOrNight = 1;
 
-    // ID от куда и куда, они обнулялись почему то. Теперь нет.
-    private Integer fromId;
-    private Integer toId;
+
 
     // Переменная используется и в OrderActivity и в HistoryActivity
     private HistoryBookings historyBookings;
 
-    // Тоже обнулялась при выборе "Откуда"/"Куда"
-    private boolean isFromChose;
+
 
     private ArrayList<Location> locationArrayList;
 
@@ -101,29 +95,5 @@ public class Variables {
 
     public void setHistoryBookings(HistoryBookings historyBookings) {
         this.historyBookings = historyBookings;
-    }
-
-    public Integer getFromId() {
-        return fromId;
-    }
-
-    public void setFromId(Integer fromId) {
-        this.fromId = fromId;
-    }
-
-    public Integer getToId() {
-        return toId;
-    }
-
-    public void setToId(Integer toId) {
-        this.toId = toId;
-    }
-
-    public void setFromChose(boolean fromChose) {
-        isFromChose = fromChose;
-    }
-
-    public boolean isFromChose() {
-        return isFromChose;
     }
 }
