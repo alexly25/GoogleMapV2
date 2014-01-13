@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Boat Taxi</string>
     <string name="history_xml_title">ИСТОРИЯ ЗАКАЗОВ</string>
-    <string name="history_xml_add_button">Создать заказ</string>
+    <string name="new_order">Создать заказ</string>
     <string name="main_xml_title">ЗАКАЗ ЛОДОЧНОГО ТАКСИ</string>
     <string name="main_xml_from">Откуда</string>
     <string name="main_xml_to">Куда</string>
@@ -17,6 +17,5 @@
     <string name="make_booking">Заказать</string>
     <string name="information_activity">Информация о заказе</string>
     <string name="history_activity">История заказов</string>
-    <string name="order_activity">Новый заказ</string>
     <string name="map_activity">Выбор точки</string>
 </resources>

@@ -4,18 +4,11 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-        <TextView android:textSize="18dp"
-                android:text="@string/history_xml_title"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-        </LinearLayout>
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/lvHistory"/>
 
 </LinearLayout>

@@ -51,6 +51,7 @@ public class HistoryActivity extends FragmentActivity implements AdapterView.OnI
             Log.d(LOG, "add booking for test");
         }*/
         var.getHistoryBookings().checkStatus();
+
     }
 /*
 

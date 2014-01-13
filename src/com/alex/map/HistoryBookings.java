@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import ru.shem.services.HistoryAdapter;
 import ru.shem.services.Variables;
 
@@ -30,8 +33,8 @@ public class HistoryBookings {
     private static final String statusNoActual = "no_actual";
     private static final String tableName = "history";
 
-    private ArrayList<String> alHistory;
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<Booking> alHistory;
+    private HistoryAdapter arrayAdapter;
     private SQLite sqLite;
     private HashMap<Integer, Booking> bookingHashMap;
 
@@ -39,12 +42,14 @@ public class HistoryBookings {
 
         Log.d(LOG, "HistoryBookings");
 
-        alHistory = new ArrayList<String>();
-        arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, alHistory);
+        alHistory = new ArrayList<Booking>();
+        arrayAdapter = new HistoryAdapter(context, android.R.layout.simple_list_item_1, alHistory);
         sqLite = new SQLite(context);
         bookingHashMap = new HashMap<Integer, Booking>();
 
         lvHistory.setAdapter(arrayAdapter);
+        lvHistory.setDivider(new ColorDrawable(Color.rgb(71, 185, 228)));
+        lvHistory.setDividerHeight(1);
     }
 
     /**
@@ -226,7 +231,7 @@ public class HistoryBookings {
                     Log.d(LOG, "outBookings() Booking booking = getBooking(c);");
                     Log.d(LOG, "outBookings() add into list: " + booking.getFromLocation().getName());
 
-                    alHistory.add(booking.toString());
+                    alHistory.add(booking);
                     arrayAdapter.notifyDataSetChanged();
                     bookingHashMap.put(i, booking);
                     Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size() + " get(" + i + "): " + bookingHashMap.get(0).toString());
