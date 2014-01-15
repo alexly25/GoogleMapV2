@@ -43,7 +43,7 @@ public class HistoryBookings {
         Log.d(LOG, "HistoryBookings");
 
         alHistory = new ArrayList<Booking>();
-        arrayAdapter = new HistoryAdapter(context, android.R.layout.simple_list_item_1, alHistory);
+        arrayAdapter = new HistoryAdapter(context, R.layout.history_list_view_style, alHistory);
         sqLite = new SQLite(context);
         bookingHashMap = new HashMap<Integer, Booking>();
 
@@ -232,6 +232,7 @@ public class HistoryBookings {
                     Log.d(LOG, "outBookings() add into list: " + booking.getFromLocation().getName());
 
                     alHistory.add(booking);
+                    arrayAdapter.sort();
                     arrayAdapter.notifyDataSetChanged();
                     bookingHashMap.put(i, booking);
                     Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size() + " get(" + i + "): " + bookingHashMap.get(0).toString());
