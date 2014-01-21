@@ -1,16 +1,14 @@
 package com.alex.map;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import com.alex.data.Data;
+import com.alex.data.SQLite;
 import ru.shem.services.HistoryAdapter;
 import ru.shem.services.Variables;
 
@@ -35,8 +33,8 @@ public class HistoryBookings {
 
     private ArrayList<Booking> alHistory;
     private HistoryAdapter arrayAdapter;
-    private SQLite sqLite;
     private HashMap<Integer, Booking> bookingHashMap;
+    private SQLite sqLite;
 
     public HistoryBookings(Context context, ListView lvHistory) {
 
@@ -54,6 +52,7 @@ public class HistoryBookings {
 
     /**
      * Метод эмулирующий добавление заказа. НЕ УДАЛЯТЬ!!!
+     *
      * @return
      */
     public int addBookingForTests() {
@@ -65,15 +64,15 @@ public class HistoryBookings {
                 2111,
                 statusActual);
 
-        if (addingBooking(booking)) {
-            if (booking.getStatus().equals(statusActual)) {
-                outBookings();
-                Log.d(LOG, "addBooking() status actual");
-            } else if (booking.getStatus().equals(statusPause)) {
-                Log.d(LOG, "addBooking() status pause");
-            }
+        Data data = new Data(sqLite);
+
+        if (data.addBooking(booking) && booking.getStatus().equals(statusActual)) {
+
+            outBookings();
+
             return 1;
         }
+
         return 0;
     }
 
@@ -84,22 +83,15 @@ public class HistoryBookings {
 
         Log.d(LOG, "checkStatus()");
 
-        SQLiteDatabase db = null;
-        Cursor c = null;
-        Date date = new Date();
+        Data data = new Data(sqLite);
 
         try {
 
-            db = sqLite.getWritableDatabase(); // подключаемся к БД
+            Log.d(LOG, "checkStatus() c.getCount() actual: " + data.getCountLineActual());
 
-            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = '" + statusActual + "'", null);
-            Log.d(LOG, "checkStatus() c.getCount() actual: " + c.getCount());
+            data.updataStatus();
 
-            db.execSQL("UPDATE history SET status = '" + statusNoActual + "' WHERE date < " + date.getTime() + "");
-            Log.d(LOG, "checkStatus() UPDATE history SET status = '" + statusNoActual + "' WHERE date < " + date.getTime() + "");
-
-            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = '" + statusActual + "'", null);
-            Log.d(LOG, "checkStatus() c.getCount() actual: " + c.getCount());
+            Log.d(LOG, "checkStatus() c.getCount() actual: " + data.getCountLineActual());
 
             outBookings();
 
@@ -107,9 +99,6 @@ public class HistoryBookings {
 
             Log.d(LOG, "!!!!!checkStatus() catch error: " + e.toString());
 
-        } finally {
-            c.close();
-            db.close();
         }
 
     }
@@ -128,52 +117,6 @@ public class HistoryBookings {
     }
 
     /**
-     * Метод получает строку из БД со статусом statusPause, записывает ее данные в booking,
-     * с которого будет считываться состояние, и удаляет эту строку из БД.
-     *
-     * @return Возвращает объект класса Booking хранящий состояние перед закрытием программы.
-     */
-    public Booking getBookingPause() {
-        Booking booking = null;
-
-        Log.d(LOG, "getBookingPause()");
-
-        SQLiteDatabase db = null;
-        Cursor c = null;
-
-        try {
-
-            db = sqLite.getWritableDatabase(); // подключаемся к БД
-
-            c = db.rawQuery("SELECT * FROM " + tableName + " WHERE status = 'pause'", null);
-
-            if (c.getCount() > 1) {
-                Log.d(LOG, "!!!!!getBookingPause() c.getCount(): " + c.getCount());
-            }
-
-            if (c.moveToFirst()) {
-
-                booking = getBooking(c);
-                Log.d(LOG, "getBookingPause() booking.toString() " + booking.toString());
-
-                db.execSQL("DELETE FROM " + tableName + " WHERE status = 'pause'");
-                Log.d(LOG, "getBookingPause() Delete FROM " + tableName + " WHERE status = 'pause'");
-
-                outBookings();
-            }
-
-        } catch (Exception e) {
-
-            Log.d(LOG, "!!!!!getBookingPause() catch error: " + e.toString());
-
-        } finally {
-            c.close();
-            db.close();
-        }
-        return booking;
-    }
-
-    /**
      * Метод добавляет объект класса Booking в БД. Если статус заказа актуальный, то обновляется лист с заказами.
      *
      * @param booking Записываемый объект
@@ -187,17 +130,13 @@ public class HistoryBookings {
             return false;
         }
 
-        if (addingBooking(booking)) {
-            if (booking.getStatus().equals(statusActual)) {
-                outBookings();
-                Log.d(LOG, "addBooking() status actual");
-            } else if (booking.getStatus().equals(statusPause)) {
-                Log.d(LOG, "addBooking() status pause");
-            }
+        Data data = new Data(sqLite);
+
+        if (data.addBooking(booking) && booking.getStatus().equals(statusActual)) {
+            outBookings();
+
             return true;
         }
-
-        Log.d(LOG, "!!!!!addBooking() return false");
 
         return false;
     }
@@ -270,84 +209,7 @@ public class HistoryBookings {
                 new Date(Long.valueOf(c.getString(c.getColumnIndex("date")))),
                 Integer.valueOf(c.getString(c.getColumnIndex("cost"))),
                 c.getString(c.getColumnIndex("status")));
-
     }
 
-    /**
-     * Вспомагательный метод для добавления
-     *
-     * @param booking
-     * @return
-     */
-    private boolean addingBooking(Booking booking) {
 
-        Log.d(LOG, "addingBooking()");
-
-        boolean isAdded = false;
-
-        if (booking == null) {
-            return false;
-        }
-
-        SQLiteDatabase db = null;
-
-        try {
-            // создаем объект для данных
-            ContentValues cv = new ContentValues();
-
-            // подключаемся к БД
-            db = sqLite.getWritableDatabase();
-
-            cv.put("boathouseFrom", booking.getFromLocation().getName());
-            cv.put("boathouseTo", booking.getToLocation().getName());
-            cv.put("date", booking.getFromDate().getTime());
-            cv.put("cost", booking.getCost());
-            cv.put("status", booking.getStatus());
-
-            if (db.insert(tableName, null, cv) != -1) {
-                isAdded = true;
-            } else {
-
-                Log.d(LOG, "!!!!!addingBooking() no added " + booking.toString() + ", insert: -1");
-            }
-
-
-        } catch (Exception e) {
-
-            Log.d(LOG, "!!!!!addingBooking() catch error: " + e.toString());
-            isAdded = false;
-
-        } finally {
-            db.close();
-
-        }
-        return isAdded;
-
-    }
-
-    private class SQLite extends SQLiteOpenHelper {
-
-        public SQLite(Context context) {
-            super(context, "BoatTaxi", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-
-            Log.d(LOG, "onCreate() create table");
-
-            db.execSQL("create table history ("
-                    + "id integer primary key autoincrement,"
-                    + "boathouseFrom text,"
-                    + "boathouseTo text,"
-                    + "date date,"
-                    + "cost text,"
-                    + "status text" + ");");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-    }
 }

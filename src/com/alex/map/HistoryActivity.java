@@ -42,7 +42,6 @@ public class HistoryActivity extends FragmentActivity implements AdapterView.OnI
         lvHistory = (ListView) findViewById(R.id.lvHistory);
         lvHistory.setOnItemClickListener(this);
 
-
         // Теперь переменные которые используются больше чем в одном экране хранятся в Variables
         var.setHistoryBookings(new HistoryBookings(this, lvHistory));
 

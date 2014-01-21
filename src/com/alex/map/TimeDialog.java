@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 import ru.shem.services.Variables;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -42,7 +43,8 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     private int selectedHour;
     private int selectedMinute;
     private Booking booking;
-    private Date d;
+    private Date date;
+    private int[] displayedValuesDate;
 
     public TimeDialog(Booking booking) {
         this.booking = booking;
@@ -57,48 +59,74 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
             builder = new AlertDialog.Builder(getActivity());
 
-            d = new Date();
-            minDate = d.getDate();
-            minHour = d.getHours();
-            minMinute = d.getMinutes();
+            date = new Date();
+            minDate = date.getDate();
+            minHour = date.getHours();
+            minMinute = date.getMinutes();
 
-            Log.d(LOG, d.toGMTString());
+            Log.d(LOG, date.toGMTString());
 
             // Подключаемся к time_dialog.xml
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View v = inflater.inflate(R.layout.time_dialog, null);
 
-            // определяем количество дней в месяце
-            int dayInMonth = ((GregorianCalendar) GregorianCalendar.getInstance()).getActualMaximum(Calendar.DAY_OF_MONTH);
-
-            setValues(npDate = (NumberPicker) v.findViewById(R.id.npDate), minDate, dayInMonth, minDate);
+            // Задаем значения объектам NumberPicker
+            //setValues(npDate = (NumberPicker) v.findViewById(R.id.npDate), minDate, dayInMonth, minDate);
+            setValueNPDate(npDate = (NumberPicker) v.findViewById(R.id.npDate));
             setValues(npHour = (NumberPicker) v.findViewById(R.id.npHour), minHour, MAX_HOUR, minHour);
             setValues(npMinute = (NumberPicker) v.findViewById(R.id.npMinute), minMinute, MAX_MINUTE, minMinute + ADD_MINUTE);
 
             builder.setView(v)
                     .setTitle("Время отправки")
-                    .setPositiveButton("Задать", this);
+                    .setPositiveButton("Ok", this);
 
         } catch (Exception e) {
-            Log.d(LOG, "onCreteDialog " + e.toString());
+            Log.d(LOG, "!!!!!onCreteDialog " + e.toString());
         }
 
         return builder.create();
     }
 
     /**
-     * Метод задает свойства компоненту класса NumberPicker
-     *
-     * @param np       Компонент класса
-     * @param minValue минимальное значение которое принимает компонент
-     * @param maxValue максимальное знаечение которое принимает компонент
-     * @param value    значение которое принимает компонент по умолчанию
+     * Метод задает значение объекту класса NumberPicker, отвечающий за выбор даты
+     * @param numberPicker объект, которому задаем значения
      */
-    private void setValues(NumberPicker np, int minValue, int maxValue, int value) {
-        np.setMinValue(minValue);
-        np.setMaxValue(maxValue);
-        np.setValue(value);
-        np.setOnValueChangedListener(this);
+    private void setValueNPDate(NumberPicker numberPicker) {
+
+        // определяем количество дней в месяце
+        int dayOfMonth = ((GregorianCalendar) GregorianCalendar.getInstance()).getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        // осталось дней в месяце
+        int daysLeft = dayOfMonth - date.getDate();
+
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(daysLeft);
+
+        String[] displayedValuesString = new String[daysLeft + 1];
+        displayedValuesDate = new int[daysLeft + 1];
+        for (int i = 0; i < displayedValuesString.length; i++) {
+            Date d = new Date(date.getTime() + i * 86400000);
+            displayedValuesString[i] = new SimpleDateFormat("d MMM").format(d);
+            displayedValuesDate[i] = d.getDate();
+        }
+
+        numberPicker.setDisplayedValues(displayedValuesString);
+        numberPicker.setOnValueChangedListener(this);
+    }
+
+    /**
+     * Метод задает свойства объекту numberPicker
+     *
+     * @param numberPicker объект которому задаем значение
+     * @param minValue     минимальное значение которое принимает объект
+     * @param maxValue     максимальное знаечение которое принимает объект
+     * @param value        мначение которое принимает объект по умолчанию
+     */
+    private void setValues(NumberPicker numberPicker, int minValue, int maxValue, int value) {
+        numberPicker.setMinValue(minValue);
+        numberPicker.setMaxValue(maxValue);
+        numberPicker.setValue(value);
+        numberPicker.setOnValueChangedListener(this);
     }
 
     /**
@@ -108,23 +136,23 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
     public void onClick(DialogInterface dialog, int which) {
 
         if (which == Dialog.BUTTON_POSITIVE) {
-            selectedDate = npDate.getValue();
+            selectedDate = displayedValuesDate[npDate.getValue()];
             selectedHour = npHour.getValue();
             selectedMinute = npMinute.getValue();
 
-            booking.setDate(new Date(d.getYear(),
-                    d.getMonth(),
+            booking.setDate(new Date(date.getYear(),
+                    date.getMonth(),
                     selectedDate,
                     selectedHour,
                     selectedMinute + ADD_MINUTE));
-            ((OrderActivity)getActivity()).resetViews();
+            ((OrderActivity) getActivity()).resetViews();
 
             if ((selectedHour <= 6) || (selectedHour >= 23)) { // если ночь
                 var.setDayOrNight(2);
             } else { // если день
                 var.setDayOrNight(1);
             }
-            ((OrderActivity)getActivity()).doCalculation();
+            ((OrderActivity) getActivity()).doCalculation();
         }
     }
 
@@ -141,7 +169,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
                 Log.d(LOG, "minDate ");
 
-                value = npDate.getValue();
+                value = displayedValuesDate[npDate.getValue()];
 
                 // Если значение даты больше минимального значения, то обнуляем минимальное значение у бегунков с часами и минутами
                 if (value > minDate) {
