@@ -33,7 +33,6 @@ public class HistoryBookings {
 
     private ArrayList<Booking> alHistory;
     private HistoryAdapter arrayAdapter;
-    private HashMap<Integer, Booking> bookingHashMap;
     private SQLite sqLite;
 
     public HistoryBookings(Context context, ListView lvHistory) {
@@ -43,11 +42,11 @@ public class HistoryBookings {
         alHistory = new ArrayList<Booking>();
         arrayAdapter = new HistoryAdapter(context, R.layout.history_list_view_style, alHistory);
         sqLite = new SQLite(context);
-        bookingHashMap = new HashMap<Integer, Booking>();
+//        bookingHashMap = new HashMap<Integer, Booking>();
 
         lvHistory.setAdapter(arrayAdapter);
-        lvHistory.setDivider(new ColorDrawable(Color.rgb(71, 185, 228)));
-        lvHistory.setDividerHeight(1);
+        lvHistory.setDivider(new ColorDrawable(Color.WHITE));
+        lvHistory.setDividerHeight(2);
     }
 
     /**
@@ -89,7 +88,7 @@ public class HistoryBookings {
 
             Log.d(LOG, "checkStatus() c.getCount() actual: " + data.getCountLineActual());
 
-            data.updataStatus();
+            data.updateStatus();
 
             Log.d(LOG, "checkStatus() c.getCount() actual: " + data.getCountLineActual());
 
@@ -113,7 +112,7 @@ public class HistoryBookings {
 
         Log.d(LOG, "getBookingPause()");
 
-        return bookingHashMap.get(position);
+        return alHistory.get(position);
     }
 
     /**
@@ -160,7 +159,7 @@ public class HistoryBookings {
             if (c.moveToFirst()) {
 
                 alHistory.clear();
-                bookingHashMap.clear();
+//                bookingHashMap.clear();
                 Log.d(LOG, "outBooking() clear list");
                 int i = -1;
 
@@ -171,14 +170,14 @@ public class HistoryBookings {
                     Log.d(LOG, "outBookings() add into list: " + booking.getFromLocation().getName());
 
                     alHistory.add(booking);
-                    arrayAdapter.sort();
-                    arrayAdapter.notifyDataSetChanged();
-                    bookingHashMap.put(i, booking);
-                    Log.d(LOG, "outBookings() add into hashMap: " + bookingHashMap.size() + " get(" + i + "): " + bookingHashMap.get(0).toString());
+//                    bookingHashMap.put(i, booking);
+                    Log.d(LOG, "outBookings() add into hashMap: " + /*bookingHashMap.size() +*/ " get(" + i + "): " /*+ bookingHashMap.get(0).toString()*/);
 
                     // переход на следующую строку
                     // а если следующей нет (текущая - последняя), то false - выходим из цикла
                 } while (c.moveToNext());
+                arrayAdapter.sort();
+                arrayAdapter.notifyDataSetChanged();
 
             } else {
                 Log.d(LOG, "outBooking() 0 rows");

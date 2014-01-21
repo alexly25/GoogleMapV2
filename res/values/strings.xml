@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Boat Taxi</string>
-    <string name="history_xml_title">ИСТОРИЯ ЗАКАЗОВ</string>
+    <string name="app_name">Речное такси</string>
     <string name="new_order">Создать заказ</string>
-    <string name="main_xml_title">ЗАКАЗ ЛОДОЧНОГО ТАКСИ</string>
     <string name="main_xml_from">Откуда</string>
     <string name="main_xml_to">Куда</string>
     <string name="main_xml_cost">Оплата 0.0</string>
-    <string name="main_xml_to_order">ЗАКАЗАТЬ</string>
     <string name="time_dialog_xml_date">Дата</string>
     <string name="time_dialog_xml_hour">Часы</string>
     <string name="time_dialog_xml_minute">Минуты</string>
-    <string name="toast_booked">Заказ сделан</string>
-    <string name="toast_booking_is_empty">Не верно оформлен заказ</string>
     <string name="toast_booking_error">Ошибка ввода данных</string>
-    <string name="make_booking">Заказать</string>
     <string name="information_activity">Информация о заказе</string>
     <string name="history_activity">История заказов</string>
     <string name="map_activity">Выбор точки</string>

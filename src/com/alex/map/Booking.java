@@ -112,9 +112,9 @@ public class Booking implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(fromLocation.getName())
-                .append(" => ").append(toLocation.getName())
-                .append("\nВремя отправления: ").append(new SimpleDateFormat("d MMM HH:mm").format(date))
-                .append("\nСтоимость поездки: ").append(cost);
+                .append(" \u2192 ").append(toLocation.getName())
+                .append("\n").append(new SimpleDateFormat("d MMM HH:mm").format(date))
+                .append("\t\t\t\t\t\t").append(cost).append(" руб.");
         return sb.toString();
     }
 }

@@ -2,12 +2,15 @@ package ru.shem.services;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.alex.map.Booking;
+import com.alex.map.R;
+
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ public class HistoryAdapter extends ArrayAdapter<Booking> {
     private int textViewResourceId;
 
     private static final String STATUS_ACTUAL = "actual";
-    private static final String STATUS_PAUSE = "no_actual";
+    private static final String STATUS_PAUSE = "pause";
 
     /**
      *  Типы сортировки:
@@ -58,17 +61,16 @@ public class HistoryAdapter extends ArrayAdapter<Booking> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if( convertView == null ){
+        if( convertView == null ) {
             convertView = LayoutInflater.from(getContext()).inflate(textViewResourceId, null);
         }
 
         Booking booking = getItem(position);
 
         if(booking.getStatus().equals(STATUS_ACTUAL)) {
-            ((TextView) convertView).setTextColor(Color.rgb(12, 112, 164)); //89, 230, 129
-            ((TextView) convertView).setTextSize(18);
+            ((TextView) convertView).setTextColor(Color.BLACK);
         } else if(booking.getStatus().equals(STATUS_PAUSE)){
-            ((TextView) convertView).setTextColor(Color.rgb(161, 164, 188));
+            ((TextView) convertView).setTextColor(R.color.no_actual_order);
         }
         return super.getView(position, convertView, parent);
     }

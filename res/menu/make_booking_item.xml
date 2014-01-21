@@ -5,6 +5,6 @@
             android:id="@+id/make_booking_item"
             android:showAsAction="always"
             android:enabled="true"
-            android:title="@string/make_booking">
+            android:icon="@drawable/order_done">
     </item>
 </menu>

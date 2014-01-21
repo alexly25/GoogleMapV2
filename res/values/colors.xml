@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_background">#E2E3E4</color>
+    <color name="white_background">#FFFFFF</color>
+    <color name="actual_order">#000000</color>
+    <color name="no_actual_order">#7F7F7F</color>
+</resources>

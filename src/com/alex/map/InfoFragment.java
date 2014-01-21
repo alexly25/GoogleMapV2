@@ -81,7 +81,7 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
         // Добавление линии соединяющую точку отправки и точки прибытия
 
         map.addPolyline(new PolylineOptions().geodesic(false)
-                .color(Color.RED)
+                .color(Color.BLACK)
                 .add(booking.getFromLocation().getLatLng())
                 .add(booking.getToLocation().getLatLng()));
 

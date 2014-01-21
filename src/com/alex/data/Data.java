@@ -62,17 +62,18 @@ public class Data {
         return count;
     }
 
-    public void updataStatus() {
+    public void updateStatus() {
 
         try {
 
             db = sqLite.getWritableDatabase();
 
-            db.execSQL("UPDATE " + tableName + " SET status = '" + statusActual + "' WHERE date < " + new Date().getTime() + "");
+            db.execSQL("UPDATE " + tableName + " SET status = '" + statusActual + "' WHERE date > " + new Date().getTime() + "");
+            db.execSQL("UPDATE " + tableName + " SET status = '" + statusPause + "' WHERE date < " + new Date().getTime() + "");
 
         } catch (Exception e) {
 
-            Log.d(LOG, "!!!!!updataStatus() catch error: " + e.toString());
+            Log.d(LOG, "!!!!!updateStatus() catch error: " + e.toString());
 
         } finally {
             db.close();

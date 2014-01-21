@@ -57,6 +57,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
         try {
 
+
             builder = new AlertDialog.Builder(getActivity());
 
             date = new Date();

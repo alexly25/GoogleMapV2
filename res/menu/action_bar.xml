@@ -4,6 +4,6 @@
     <item
             android:id="@+id/btnAddOrder"
             android:showAsAction="always"
-            android:title="@string/new_order">
+            android:icon="@drawable/add_order">
     </item>
 </menu>

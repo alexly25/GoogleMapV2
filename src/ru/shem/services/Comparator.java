@@ -13,7 +13,7 @@ class Comparator implements java.util.Comparator<Booking> {
     private String sortType;
 
     private static final String STATUS_ACTUAL = "actual";
-    private static final String STATUS_PAUSE = "no_actual";
+    private static final String STATUS_PAUSE = "pause";
 
     /**
      *  Типы сортировки:
@@ -59,6 +59,12 @@ class Comparator implements java.util.Comparator<Booking> {
                 } else {
                     result = lhs.getFromDate().compareTo(rhs.getFromDate());
                 }
+            }
+            if(lhs.getStatus().equals(STATUS_ACTUAL) && rhs.getStatus().equals(STATUS_PAUSE)) {
+                result = -1;
+            }
+            if(lhs.getStatus().equals(STATUS_PAUSE) && rhs.getStatus().equals(STATUS_ACTUAL)) {
+                result = 1;
             }
         }
 
