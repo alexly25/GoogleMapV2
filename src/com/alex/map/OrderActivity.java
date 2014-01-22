@@ -47,6 +47,8 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Log.d(LOG, "onCreate()");
         setContentView(R.layout.order);
 
+
+
         init();
 
         // Востанавливаем состояние view компонентов перед выполнением Activity
@@ -79,10 +81,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
     protected void onResume() {
         Log.d(LOG, "onResume()");
         super.onResume();
-
-
-        // Зачем??
-        //calculation();
 
         // Регистрируем широковещательный канал
         broadcastReceiver = new CostCalculationBroadcastReceiver();
@@ -257,14 +255,14 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
 
         Log.d(LOG, "calculation()");
 
-        if ((toId != null) && (fromId != null)) {
+        if (toId != null && fromId != null && newBooking.getFromDate() != null) {
 
             if (toId != fromId) {
 
                 // Создаём исходный поток в IntentService
                 Intent intentCostCalculating = new Intent(this, CostCalculating.class);
 
-                startService(intentCostCalculating.putExtra("time", var.getDayOrNight()).putExtra("i", fromId).putExtra("j", toId));
+                startService(intentCostCalculating.putExtra("hour", newBooking.getFromDate().getHours()).putExtra("i", fromId).putExtra("j", toId));
             } else {
                 Toast.makeText(getBaseContext(), "Вы выбрали одинаковые станции!", Toast.LENGTH_LONG).show();
             }

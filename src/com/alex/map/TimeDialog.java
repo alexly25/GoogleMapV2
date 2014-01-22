@@ -79,7 +79,7 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
 
             builder.setView(v)
                     .setTitle("Время отправки")
-                    .setPositiveButton("Ok", this);
+                    .setPositiveButton("OK", this);
 
         } catch (Exception e) {
             Log.d(LOG, "!!!!!onCreteDialog " + e.toString());
@@ -145,15 +145,10 @@ public class TimeDialog extends DialogFragment implements OnClickListener, Numbe
                     date.getMonth(),
                     selectedDate,
                     selectedHour,
-                    selectedMinute + ADD_MINUTE));
-            ((OrderActivity) getActivity()).resetViews();
+                    selectedMinute));
 
-            if ((selectedHour <= 6) || (selectedHour >= 23)) { // если ночь
-                var.setDayOrNight(2);
-            } else { // если день
-                var.setDayOrNight(1);
-            }
             ((OrderActivity) getActivity()).doCalculation();
+            ((OrderActivity) getActivity()).resetViews();
         }
     }
 

@@ -48,8 +48,8 @@ public class HistoryActivity extends FragmentActivity implements AdapterView.OnI
         // Эмулятор добавления заказа. НЕ УДАЛЯТЬ!!! т.к. у меня(Алеша) не отображаются MenuItem
         /*if (var.getHistoryBookings().addBookingForTests() == 1) {
             Log.d(LOG, "add booking for test");
-        }*/
-        var.getHistoryBookings().checkStatus();
+        }
+   */     var.getHistoryBookings().checkStatus();
 
     }
 /*

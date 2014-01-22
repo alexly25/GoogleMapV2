@@ -14,16 +14,11 @@ import java.util.ArrayList;
  * Здесь распологаются переменные используемые в более чем одном классе
  */
 public class Variables {
+
     private static Variables instance;
-
-    private int dayOrNight = 1;
-
-
 
     // Переменная используется и в OrderActivity и в HistoryActivity
     private HistoryBookings historyBookings;
-
-
 
     private ArrayList<Location> locationArrayList;
 
@@ -79,14 +74,6 @@ public class Variables {
 
     public ArrayList<Location> getLocationArrayList() {
         return locationArrayList;
-    }
-
-    public int getDayOrNight() {
-        return dayOrNight;
-    }
-
-    public void setDayOrNight(int dayOrNight) {
-        this.dayOrNight = dayOrNight;
     }
 
     public HistoryBookings getHistoryBookings() {

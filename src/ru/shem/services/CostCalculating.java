@@ -58,8 +58,12 @@ public class CostCalculating extends IntentService {
     protected void onHandleIntent(Intent intent) {
         double cost = 0.0;
 
-        int dayOrNight = intent.getIntExtra("time", 1); // сода передаётся, днём или ночью был создан заказ.
-        // Значения: 1 или 2
+        int dayOrNight = 1; // сода передаётся, днём или ночью был создан заказ.
+        int selectedHour = intent.getIntExtra("hour", 1);// Значения: 1 или 2
+
+        if ((selectedHour <= 6) || (selectedHour >= 23)) { // если ночь
+            dayOrNight = 0;
+        }
 
         double present = 0.25; // Процент от расстояния, наценка.
         double range = distanceMatrix[intent.getIntExtra("i", 2)][intent.getIntExtra("j", 6)]; // передаём расстояние указанное в матрице

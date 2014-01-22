@@ -39,37 +39,37 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
 
         Log.d(LOG, "onCreate()");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.info);
-        Log.d(LOG, "onCreate()");
         this.booking = (Booking) getIntent().getSerializableExtra("booking"); // Получаем выбранный в listview заказ
-        Log.d(LOG, "onCreate()");
         setTextInfo();
-        Log.d(LOG, "onCreate()");
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.info_map)) // Получаем карту
                 .getMap();
-        Log.d(LOG, "onCreate() " + booking.toString() );
-        addMarkers(booking.getFromLocation(), booking.getFromTime());
-        addMarkers(booking.getToLocation(), booking.getToTime());
-        Log.d(LOG, "onCreate()");
+
+        addMarkers(booking.getFromLocation(), booking.getFromTime(),
+                BitmapDescriptorFactory.fromResource(R.drawable.marker1));
+        addMarkers(booking.getToLocation(), booking.getToTime(),
+                BitmapDescriptorFactory.fromResource(R.drawable.marker2));
+
         addLine();
-        Log.d(LOG, "onCreate()");
+
         // Фокусируемся на Самаре
         coordinateSamara = new LatLng(53.217482, 50.112419);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinateSamara, zoomSamara));
-        Log.d(LOG, "onCreate()");
     }
 
     /**
      * Метод добавляет маркеры на карту
      */
-    private void addMarkers(Location location, String snippet) {
+    private void addMarkers(Location location, String snippet, BitmapDescriptor bitmapDescriptor) {
         Log.d(LOG, "addMarker()");
 
         map.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+                .icon(bitmapDescriptor)
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
                 .title(location.getName())
-                .snippet(snippet));
+                .snippet(snippet)
+                .anchor(0.5f, 0.5f));
         Log.d(LOG, "addMarker()end");
     }
 
@@ -94,7 +94,7 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
         ((TextView) findViewById(R.id.tvFromInfo)).setText("Точка отправки: " + booking.getFromLocation().getName());
         ((TextView) findViewById(R.id.tvToInfo)).setText("Точка прибытия: " + booking.getToLocation().getName());
         ((TextView) findViewById(R.id.tvDateInfo)).setText(booking.getTravelTime());
-        ((TextView) findViewById(R.id.tvCostInfo)).setText("Стоимость: " + booking.getCostToString());
+        ((TextView) findViewById(R.id.tvCostInfo)).setText("Стоимость: " + booking.getCost());
     }
 
     GoogleMap.CancelableCallback MyCancelableCallback =
@@ -106,6 +106,34 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
                     Log.d(LOG, "onFinish()");
 
                     if (i == 0) {
+
+                        nextPoint(booking.getFromLocation().getLatLng(), zoomSamara, tiltSamara, 5000);
+
+                    } else if (i == 1) {
+
+                        nextPoint(booking.getFromLocation().getLatLng(), zoomPoints, tiltPoints, 2000);
+
+                    } else if (i == 2) {
+
+                        nextPoint(booking.getToLocation().getLatLng(), zoomPoints, tiltPoints, 20000);
+
+                    } else if (i == 3) {
+
+                        nextPoint(booking.getToLocation().getLatLng(), zoomSamara, tiltSamara, 2000);
+
+                    } else if (i == 4) {
+
+
+                        LatLng latLng = new LatLng(coordinateSamara.latitude - 0.0002,
+                                coordinateSamara.longitude);
+                        nextPoint(latLng, zoomSamara, tiltSamara, 2000);
+
+                    } else if (i == 5) {
+
+                        nextPoint(coordinateSamara, zoomSamara, tiltSamara, 2000);
+                    }
+
+                    /*if (i == 0) {
 
                         LatLng latLng = new LatLng(booking.getFromLocation().getLatitude() + 0.00002,
                                 booking.getFromLocation().getLongitude() + 0.00002);
@@ -135,7 +163,9 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
                     } else if (i == 5) {
 
                         nextPoint(coordinateSamara, zoomSamara, tiltSamara, 2000);
-                    }
+                    }*/
+
+
                 }
 
                 @Override
