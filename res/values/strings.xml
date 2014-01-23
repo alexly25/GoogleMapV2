@@ -9,7 +9,7 @@
     <string name="time_dialog_xml_hour">Часы</string>
     <string name="time_dialog_xml_minute">Минуты</string>
     <string name="toast_booking_error">Ошибка ввода данных</string>
-    <string name="information_activity">Информация о заказе</string>
+    <string name="information_activity">Заказ</string>
     <string name="history_activity">История заказов</string>
     <string name="map_activity">Выбор точки</string>
 </resources>

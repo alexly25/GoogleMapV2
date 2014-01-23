@@ -119,8 +119,7 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
      */
     private void setTextInfo() {
         ((TextView) findViewById(R.id.tvFromInfo)).setText(booking.getFromLocation().getName() + " → " + booking.getToLocation().getName());
-        //((TextView) findViewById(R.id.tvToInfo)).setText("Точка прибытия: " + booking.getToLocation().getName());
-        ((TextView) findViewById(R.id.tvDateInfo)).setText("\u223c" + booking.getTravelTime() + ", " + booking.getCost() + "руб");
+        ((TextView) findViewById(R.id.tvDateInfo)).setText("\u223c" + booking.getTravelTime() + " минут, " + booking.getCost() + " руб");
         ((TextView) findViewById(R.id.tvCostInfo)).setText(booking.getFromTime());
     }
 
@@ -159,40 +158,6 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
 
                         nextPoint(coordinateSamara, zoomSamara, tiltSamara, 2000);
                     }
-
-                    /*if (i == 0) {
-
-                        LatLng latLng = new LatLng(booking.getFromLocation().getLatitude() + 0.00002,
-                                booking.getFromLocation().getLongitude() + 0.00002);
-                        nextPoint(latLng, zoomSamara, tiltSamara, 5000);
-
-                    } else if (i == 1) {
-
-                        LatLng latLng = new LatLng(booking.getFromLocation().getLatitude() + 0.00002,
-                                booking.getFromLocation().getLongitude() + 0.00002);
-                        nextPoint(latLng, zoomPoints, tiltPoints, 2000);
-
-                    } else if (i == 2) {
-
-                        nextPoint(booking.getFromLocation().getLatLng(), zoomPoints, tiltPoints, 2000);
-
-                    } else if (i == 3) {
-
-                        nextPoint(booking.getToLocation().getLatLng(), zoomPoints, tiltPoints, 20000);
-
-                    } else if (i == 4) {
-
-
-                        LatLng latLng = new LatLng(coordinateSamara.latitude - 0.0002,
-                                coordinateSamara.longitude);
-                        nextPoint(latLng, zoomSamara, tiltSamara, 2000);
-
-                    } else if (i == 5) {
-
-                        nextPoint(coordinateSamara, zoomSamara, tiltSamara, 2000);
-                    }*/
-
-
                 }
 
                 @Override
@@ -228,7 +193,6 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
                                     .tilt(tilt)
                                     .zoom(zoom)
                                     .build();
-
 
                     map.animateCamera(
                             CameraUpdateFactory.newCameraPosition(cameraPosition),

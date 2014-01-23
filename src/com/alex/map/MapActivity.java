@@ -26,7 +26,6 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
     private GoogleMap map;
     private ArrayList<Location> locationArrayList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,7 +59,8 @@ public class MapActivity extends FragmentActivity implements GoogleMap.OnMarkerC
         map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .title(location.getName()));
+                .title(location.getName())
+                .anchor(0.5f, 0.5f));
     }
 
     /**

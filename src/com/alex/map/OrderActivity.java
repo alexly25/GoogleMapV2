@@ -47,8 +47,6 @@ public class OrderActivity extends FragmentActivity implements View.OnClickListe
         Log.d(LOG, "onCreate()");
         setContentView(R.layout.order);
 
-
-
         init();
 
         // Востанавливаем состояние view компонентов перед выполнением Activity
