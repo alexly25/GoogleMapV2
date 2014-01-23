@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
+import ru.shem.services.Variables;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,19 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
 
         addLine();
 
+        locationArrayList = Variables.getInstance().getLocationArrayList(); // Получаем маркеры
+        // Добавление маркеров станций на карту
+        int size = locationArrayList.size();
+        for (int i = 0; i < size; i++) {
+
+            Location location = locationArrayList.get(i);
+
+            if (!location.equals(booking.getFromLocation()) &&
+                    !location.equals(booking.getToLocation())) {
+                addBoathouse(location);
+            }
+        }
+
         // Фокусируемся на Самаре
         coordinateSamara = new LatLng(53.217482, 50.112419);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinateSamara, zoomSamara));
@@ -71,6 +85,19 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
                 .snippet(snippet)
                 .anchor(0.5f, 0.5f));
         Log.d(LOG, "addMarker()end");
+    }
+
+    /**
+     * Метод добавляет маркер на карту
+     *
+     * @param location Имя и координаты мркера
+     */
+    private void addBoathouse(Location location) {
+        map.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .title(location.getName())
+                .anchor(0.5f, 0.5f));
     }
 
     /**

@@ -43,4 +43,13 @@ public class Location implements Serializable {
     public LatLng getLatLng() {
         return new LatLng(this.latitude, this.longitude);
     }
+
+    public boolean equals(Location location){
+
+        if(latitude == location.getLatitude() && longitude == location.getLongitude()){
+            return true;
+        }
+
+        return false;
+    }
 }
