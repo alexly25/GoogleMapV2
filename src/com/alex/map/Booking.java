@@ -64,7 +64,7 @@ public class Booking implements Serializable {
     }
 
     public String getFromTime() {
-        return new SimpleDateFormat("'Отплытие:' d MMM 'в' HH:mm").format(date);
+        return new SimpleDateFormat("d MMM HH:mm").format(date);
     }
 
     public String getToTime() {
@@ -72,7 +72,8 @@ public class Booking implements Serializable {
     }
 
     public String getTravelTime() {
-        return new SimpleDateFormat("'Время пути:' mm мин.").format(getToDate().getTime() - getFromDate().getTime());
+        //return new SimpleDateFormat("'Время пути:' mm минут").format(getToDate().getTime() - getFromDate().getTime());
+        return "30";
     }
 
     public Location getToLocation() {

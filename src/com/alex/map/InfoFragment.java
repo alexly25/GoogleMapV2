@@ -118,10 +118,10 @@ public class InfoFragment extends FragmentActivity implements View.OnClickListen
      * Метод записывает информацию о выбраном заказе в View компоненты
      */
     private void setTextInfo() {
-        ((TextView) findViewById(R.id.tvFromInfo)).setText("Точка отправки: " + booking.getFromLocation().getName());
-        ((TextView) findViewById(R.id.tvToInfo)).setText("Точка прибытия: " + booking.getToLocation().getName());
-        ((TextView) findViewById(R.id.tvDateInfo)).setText(booking.getTravelTime());
-        ((TextView) findViewById(R.id.tvCostInfo)).setText("Стоимость: " + booking.getCost());
+        ((TextView) findViewById(R.id.tvFromInfo)).setText(booking.getFromLocation().getName() + " → " + booking.getToLocation().getName());
+        //((TextView) findViewById(R.id.tvToInfo)).setText("Точка прибытия: " + booking.getToLocation().getName());
+        ((TextView) findViewById(R.id.tvDateInfo)).setText("\u223c" + booking.getTravelTime() + ", " + booking.getCost() + "руб");
+        ((TextView) findViewById(R.id.tvCostInfo)).setText(booking.getFromTime());
     }
 
     GoogleMap.CancelableCallback MyCancelableCallback =
